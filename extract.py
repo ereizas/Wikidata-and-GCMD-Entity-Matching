@@ -1,5 +1,5 @@
 import requests
-from json import dump
+from json import dump, load
 
 def write_all_gcmd_ents_to_json():
     """
@@ -49,9 +49,25 @@ def get_wikidata_search_results(term:str):
     else:
         return {"Error occurred":f"{response.status_code}"}
     for res in data["search"]:
-        filtered_data[res["id"]] = {"term":res["display"]["label"]["value"],"description":res["description"],"match":{"alias":res["match"]["type"],"text":res["match"]["text"]}}
+        filtered_data[res["id"]] = {"term":res["display"]["label"]["value"],"description":res["description"] if res.get("description") else None,"match":{"alias":res["match"]["type"],"text":res["match"]["text"]}}
     return filtered_data
 
+def write_search_results_to_json(gcmd_ents_filename):
+    """
+    Writes the Wikidata search results for each GCMD entity to a JSON file
+
+    @param gcmd_ents_filename
+    """
+    res = {}
+    gcmd_ents = None
+    with open(gcmd_ents_filename,'r') as file:
+        gcmd_ents = load(file)
+    for uuid in gcmd_ents:
+        res[uuid] = get_wikidata_search_results(gcmd_ents[uuid]["term"])
+    with open("gcmd_ents_wikidata_search_res.json","w") as file:
+        dump(res,file)
+
 #write_all_gcmd_ents_to_json()
-print(get_wikidata_search_results("conservation"))
+#print(get_wikidata_search_results("conservation"))
+write_search_results_to_json("gcmd_ents.json")
     
