@@ -1,13 +1,24 @@
 from nltk import edit_distance
 from json import load
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 def format_entity(entity):
     """
     Formats the entity term and definition into a single string
 
     @param entity : entity with a term and definition
+    @return : single string in lowercase in the format: <term> - <definition>
     """
     return f"{entity["term"]} - {entity["definition"]}".lower()
+
+def format_entities(entities):
+    """
+    Formats all entities in the given dictionary
+
+    @param entities : dictionary with multiple entities, each with a term and definition
+    @return : list of all entities formatted
+    """
+    return [format_entity(entities[uuid]) for uuid in entities]
 
 def get_best_match(gcmd_ents:dict, wikidata_search_res:dict, target_uuid:str, rank_fxn, inverse:bool=False):
     """
