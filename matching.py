@@ -1,6 +1,14 @@
 from nltk import edit_distance
 from json import load
 
+def format_entity(entity):
+    """
+    Formats the entity term and definition into a single string
+
+    @param entity : entity with a term and definition
+    """
+    return f"{entity["term"]} - {entity["definition"]}".lower()
+
 def get_best_match(gcmd_ents:dict, wikidata_search_res:dict, target_uuid:str, rank_fxn, inverse:bool=False):
     """
     Gets the best match for the target entity from the search results based on the rank function
