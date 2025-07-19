@@ -1,6 +1,7 @@
 from nltk import edit_distance
 from json import load
 from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 
 def format_entity(entity):
     """
@@ -20,14 +21,17 @@ def format_entities(entities):
     """
     return [format_entity(entities[uuid]) for uuid in entities]
 
-def n_gram_vectorize(ents:list[str]):
+def n_gram_vectorize(target:str,candidates:list[str]):
     """
     Creates a vectors for the target entity and the candidates
-    @param ents : entities in the format: <term> - <definition> 
-    @return : list of vectorized entities
+    @param target : GCMD entity to match in the format: <term> - <definition> 
+    @param candidates : list of potential matches from Wikidata in the format: <term> - <definition> 
+    @return : vector for the target, vectors for the candidates
     """
+    texts = [target] + candidates
     vectorizer = TfidfVectorizer(analyzer='word', ngram_range=(2, 3))
-    return vectorizer.fit_transform(ents)
+    tfidf_matrix = vectorizer.fit_transform(texts)
+    return tfidf_matrix[0], tfidf_matrix[1:]
 
 def get_best_match(gcmd_ents:dict, wikidata_search_res:dict, target_uuid:str, rank_fxn, inverse:bool=False):
     """
