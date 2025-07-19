@@ -33,7 +33,7 @@ def n_gram_vectorize(target:str,candidates:list[str]):
     tfidf_matrix = vectorizer.fit_transform(texts)
     return tfidf_matrix[0], tfidf_matrix[1:]
 
-def get_best_match(target:str, wikidata_search_res:dict, rank_fxn, inverse:bool=False):
+def get_best_match(target:str, wikidata_search_res:dict, rank_fxn, inverse:bool=False, threshold:float=None):
     """
     Gets the best match for the target entity from the search results based on the rank function
 
@@ -48,11 +48,12 @@ def get_best_match(target:str, wikidata_search_res:dict, rank_fxn, inverse:bool=
         score = rank_fxn(target,wikidata_search_res[res]["term"])
         if inverse:
             score = -score
-        if score>max_score:
+        if ((threshold and score>threshold) or not threshold) and score>max_score:
             print(f"Score: {score} Term: {wikidata_search_res[res]["term"]}")
             max_score = score
             best_match = res
     return best_match
+
 
 if __name__=="__main__":
     file = open("gcmd_ents.json","r")
