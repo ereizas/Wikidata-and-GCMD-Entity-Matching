@@ -20,18 +20,14 @@ def format_entities(entities):
     """
     return [format_entity(entities[uuid]) for uuid in entities]
 
-def n_gram_vectorize(ents1:list[str],ents2:list[str]):
+def n_gram_vectorize(ents:list[str]):
     """
-    Creates vectors for two lists of formatted entities
-
-    @param ents1 : first list of formatted entities
-    @param ents2 : second list of formatted entities
-    @return : n-gram vector for ents1, n-gram vector for ents2
+    Creates a vectors for the target entity and the candidates
+    @param ents : entities in the format: <term> - <definition> 
+    @return : list of vectorized entities
     """
     vectorizer = TfidfVectorizer(analyzer='word', ngram_range=(2, 3))
-    all_texts = ents1 + ents2
-    tfidf_matrix = vectorizer.fit_transform(all_texts)
-    return tfidf_matrix[:len(ents1)], tfidf_matrix[len(ents1):]
+    return vectorizer.fit_transform(ents)
 
 def get_best_match(gcmd_ents:dict, wikidata_search_res:dict, target_uuid:str, rank_fxn, inverse:bool=False):
     """
@@ -61,6 +57,3 @@ if __name__=="__main__":
     file = open("gcmd_ents_wikidata_search_res.json","r")
     wikidata_search_res = load(file)
     print(get_best_match(gcmd_ents, wikidata_search_res, "b6fd22ab-dca7-4dfa-8812-913453b5695b", edit_distance, True))
-
-
-    
