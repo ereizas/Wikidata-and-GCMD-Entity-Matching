@@ -3,7 +3,7 @@ from json import load
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
-def format_entity(entity):
+def format_entity(entity,):
     """
     Formats the entity term and definition into a single string
 
@@ -12,26 +12,24 @@ def format_entity(entity):
     """
     return f"{entity["term"]} - {entity["definition"]}".lower()
 
-def format_entities(entities):
+def match_by_n_gram(target:dict,candidates:dict):
     """
-    Formats all entities in the given dictionary
-
-    @param entities : dictionary with multiple entities, each with a term and definition
-    @return : list of all entities formatted
-    """
-    return [format_entity(entities[uuid]) for uuid in entities]
-
-def n_gram_vectorize(target:str,candidates:list[str]):
-    """
-    Creates a vectors for the target entity and the candidates
-    @param target : GCMD entity to match in the format: <term> - <definition> 
-    @param candidates : list of potential matches from Wikidata in the format: <term> - <definition> 
+    Creates a vectors for the target entity and the candidates and matches them based on cosine simalarity
+    @param target : GCMD entity to match in the format
+    @param candidates : potential matches to target from Wikidata
     @return : vector for the target, vectors for the candidates
     """
-    texts = [target] + candidates
+    target = format_entity(target)
+    ids = candidates.keys()
+    candidate_texts = [format_entity(candidates[uuid]) for uuid in candidates]
+    texts = [target] + candidate_texts
     vectorizer = TfidfVectorizer(analyzer='word', ngram_range=(2, 3))
     tfidf_matrix = vectorizer.fit_transform(texts)
-    return tfidf_matrix[0], tfidf_matrix[1:]
+    target_vector = tfidf_matrix[0]
+    candidate_vectors = tfidf_matrix[1:]
+    similarities = cosine_similarity(target_vector, candidate_vectors).flatten()
+    ranked = sorted(zip(ids, similarities), key=lambda x: x[1], reverse=True)
+    return ranked[0]
 
 def get_best_match(target:str, wikidata_search_res:dict, rank_fxn, inverse:bool=False, threshold:float=None):
     """
@@ -54,7 +52,6 @@ def get_best_match(target:str, wikidata_search_res:dict, rank_fxn, inverse:bool=
             best_match = res
     return best_match
 
-
 if __name__=="__main__":
     file = open("gcmd_ents.json","r")
     gcmd_ents = load(file)
@@ -68,4 +65,5 @@ if __name__=="__main__":
     for uuid in gcmd_ents:
         if ground_truth[uuid]:
             print(get_best_match(gcmd_ents[uuid]["term"], wikidata_search_res[uuid], edit_distance, True))
+            print(match_by_n_gram(gcmd_ents[uuid],wikidata_search_res[uuid]))
             break
