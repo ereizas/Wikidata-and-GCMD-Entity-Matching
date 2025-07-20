@@ -34,7 +34,7 @@ def write_all_gcmd_ents_to_json():
         response = requests.get(url+f"{page}") 
     file = open("gcmd_ents.json","w")
     dump(filtered_data,file)
-    
+#TODO: Search up the terms that had specials characters in them like "/" excluding the special character this time
 def get_wikidata_search_results(term:str):
     """
     Queries Wikidata's search engine with a term and returns the search results
@@ -49,7 +49,7 @@ def get_wikidata_search_results(term:str):
     else:
         return {"Error occurred":f"{response.status_code}"}
     for res in data["search"]:
-        filtered_data[res["id"]] = {"term":res["display"]["label"]["value"],"description":res["description"] if res.get("description") else None,"match":{"alias":res["match"]["type"],"text":res["match"]["text"]}}
+        filtered_data[res["id"]] = {"term":res["display"]["label"]["value"],"definition":res["description"] if res.get("description") else None,"match":{"alias":res["match"]["type"],"text":res["match"]["text"]}}
     return filtered_data
 
 def write_search_results_to_json(gcmd_ents_filename):
@@ -68,6 +68,21 @@ def write_search_results_to_json(gcmd_ents_filename):
         dump(res,file)
 
 #write_all_gcmd_ents_to_json()
-#print(get_wikidata_search_results("conservation"))
-write_search_results_to_json("gcmd_ents.json")
-    
+#print(get_wikidata_search_results("carbon"))
+#write_search_results_to_json("gcmd_ents.json")
+
+"""
+#check type distribution of entities returned by wikidata
+with open("gcmd_ents_wikidata_search_res.json",'r') as file:
+    type_distr = {}
+    data = load(file)
+    for id in data:
+        for search_res in data[id]:
+            ent_type = data[id][search_res]["description"]
+            if ent_type:
+                if "article" not in ent_type:
+                    type_distr[ent_type] = type_distr.get(ent_type,0) + 1
+                else:
+                    type_distr["article"] = type_distr.get("article",0) + 1
+    print(type_distr)
+"""
