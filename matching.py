@@ -2,7 +2,7 @@ from nltk import edit_distance
 from json import load
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
-
+#TODO: check the entities where the match has no definition
 def format_entity(entity,):
     """
     Formats the entity term and definition into a single string
@@ -43,11 +43,10 @@ def get_best_match(target:str, wikidata_search_res:dict, rank_fxn, inverse:bool=
     max_score = float("-inf")
     best_match = ""
     for res in wikidata_search_res:
-        score = rank_fxn(target,wikidata_search_res[res]["term"])
+        score = rank_fxn(target.upper(),wikidata_search_res[res]["term"].upper())
         if inverse:
             score = -score
         if ((threshold and score>threshold) or not threshold) and score>max_score:
-            print(f"Score: {score} Term: {wikidata_search_res[res]["term"]}")
             max_score = score
             best_match = res
     return best_match
