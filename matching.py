@@ -29,7 +29,7 @@ def match_by_n_gram(target:dict,candidates:dict):
     candidate_vectors = tfidf_matrix[1:]
     similarities = cosine_similarity(target_vector, candidate_vectors).flatten()
     ranked = sorted(zip(ids, similarities), key=lambda x: x[1], reverse=True)
-    return ranked[0]
+    return ranked[0][0]
 
 def get_best_match(target:str, wikidata_search_res:dict, rank_fxn, inverse:bool=False, threshold:float=None):
     """
@@ -61,8 +61,18 @@ if __name__=="__main__":
     file = open("gcmd_ent_wikidata_ent_matching_ground_truth.json","r")
     ground_truth = load(file)
     file.close()
+    #TODO: figure out thresholds if necessary
+    edit_dist_correct = 0
+    n_gram_correct = 0
+    num_samples = 0
     for uuid in gcmd_ents:
         if ground_truth[uuid]:
-            print(get_best_match(gcmd_ents[uuid]["term"], wikidata_search_res[uuid], edit_distance, True))
-            print(match_by_n_gram(gcmd_ents[uuid],wikidata_search_res[uuid]))
-            break
+            if get_best_match(gcmd_ents[uuid]["term"], wikidata_search_res[uuid], edit_distance, True)==ground_truth[uuid]:
+                edit_dist_correct+=1
+            if match_by_n_gram(gcmd_ents[uuid],wikidata_search_res[uuid])==ground_truth[uuid]:
+                n_gram_correct+=1
+            num_samples+=1
+            #print(get_best_match(gcmd_ents[uuid]["term"], wikidata_search_res[uuid], edit_distance, True))=
+            #print(match_by_n_gram(gcmd_ents[uuid],wikidata_search_res[uuid]))
+    print(f"Accuracy of edit distance: {float(edit_dist_correct)/num_samples}")
+    print(f"Accuracy of n gram: {float(n_gram_correct)/num_samples}")
