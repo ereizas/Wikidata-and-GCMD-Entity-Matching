@@ -2,7 +2,7 @@ from nltk import edit_distance
 from json import load
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
-#TODO: check the entities where the match has no definition
+
 def format_entity(entity,):
     """
     Formats the entity term and definition into a single string
@@ -28,10 +28,9 @@ def match_by_n_gram(target:dict,candidates:dict):
     target_vector = tfidf_matrix[0]
     candidate_vectors = tfidf_matrix[1:]
     similarities = cosine_similarity(target_vector, candidate_vectors).flatten()
-    ranked = sorted(zip(ids, similarities), key=lambda x: x[1], reverse=True)
-    return ranked[0][0]
+    return sorted(zip(ids, similarities), key=lambda x: x[1], reverse=True)
 
-def get_best_match(target:str, wikidata_search_res:dict, rank_fxn, inverse:bool=False, threshold:float=None):
+def get_best_match(target:str, wikidata_search_res:dict, rank_fxn, inverse:bool=False):
     """
     Gets the best match for the target entity from the search results based on the rank function
 
@@ -40,16 +39,13 @@ def get_best_match(target:str, wikidata_search_res:dict, rank_fxn, inverse:bool=
     @param rank_fxn : function used for ranking the candidates' match to target
     @param inverse : boolean indicating whether a lower score means better match (inverse order)
     """
-    max_score = float("-inf")
-    best_match = ""
+    ranking = []
     for res in wikidata_search_res:
         score = rank_fxn(target.upper(),wikidata_search_res[res]["term"].upper())
         if inverse:
             score = -score
-        if ((threshold and score>threshold) or not threshold) and score>max_score:
-            max_score = score
-            best_match = res
-    return best_match
+        ranking.append((res,score))
+    return sorted(ranking, key=lambda x: x[1], reverse=True)
 
 if __name__=="__main__":
     file = open("gcmd_ents.json","r")
@@ -67,12 +63,12 @@ if __name__=="__main__":
     num_samples = 0
     for uuid in gcmd_ents:
         if ground_truth[uuid]:
-            if get_best_match(gcmd_ents[uuid]["term"], wikidata_search_res[uuid], edit_distance, True)==ground_truth[uuid]:
+            edit_dist_rank = get_best_match(gcmd_ents[uuid]["term"], wikidata_search_res[uuid], edit_distance, True)
+            if edit_dist_rank[0][0]==ground_truth[uuid]:
                 edit_dist_correct+=1
-            if match_by_n_gram(gcmd_ents[uuid],wikidata_search_res[uuid])==ground_truth[uuid]:
+            n_gram_rank = match_by_n_gram(gcmd_ents[uuid],wikidata_search_res[uuid])
+            if n_gram_rank[0][0]==ground_truth[uuid]:
                 n_gram_correct+=1
             num_samples+=1
-            #print(get_best_match(gcmd_ents[uuid]["term"], wikidata_search_res[uuid], edit_distance, True))=
-            #print(match_by_n_gram(gcmd_ents[uuid],wikidata_search_res[uuid]))
     print(f"Accuracy of edit distance: {float(edit_dist_correct)/num_samples}")
     print(f"Accuracy of n gram: {float(n_gram_correct)/num_samples}")
