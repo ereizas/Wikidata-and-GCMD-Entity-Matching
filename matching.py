@@ -67,6 +67,11 @@ if __name__=="__main__":
                 edit_dist_correct+=1
             if n_gram_rank and n_gram_rank[0][0]==ground_truth[uuid]:
                 n_gram_correct+=1
-            num_samples+=1
+        else:
+            if not edit_dist_rank and ground_truth[uuid]=="":
+                edit_dist_correct+=1
+            if not n_gram_rank and ground_truth[uuid]=="":
+                n_gram_correct+=1
+        num_samples+=1
     print(f"Accuracy of edit distance: {float(edit_dist_correct)/num_samples}")
     print(f"Accuracy of n gram: {float(n_gram_correct)/num_samples}")
