@@ -60,12 +60,12 @@ if __name__=="__main__":
     n_gram_correct = 0
     num_samples = 0
     for uuid in gcmd_ents:
+        edit_dist_rank = rank_by_edit_dist(gcmd_ents[uuid]["term"], wikidata_search_res[uuid])
+        n_gram_rank = rank_by_n_gram(gcmd_ents[uuid],wikidata_search_res[uuid])
         if ground_truth[uuid]:
-            edit_dist_rank = rank_by_edit_dist(gcmd_ents[uuid]["term"], wikidata_search_res[uuid])
-            if edit_dist_rank[0][0]==ground_truth[uuid]:
+            if edit_dist_rank and edit_dist_rank[0][0]==ground_truth[uuid]:
                 edit_dist_correct+=1
-            n_gram_rank = rank_by_n_gram(gcmd_ents[uuid],wikidata_search_res[uuid])
-            if n_gram_rank[0][0]==ground_truth[uuid]:
+            if n_gram_rank and n_gram_rank[0][0]==ground_truth[uuid]:
                 n_gram_correct+=1
             num_samples+=1
     print(f"Accuracy of edit distance: {float(edit_dist_correct)/num_samples}")
