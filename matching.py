@@ -32,22 +32,18 @@ def match_by_n_gram(target:dict,candidates:dict):
         similarities = cosine_similarity(target_vector, candidate_vectors).flatten()
     return sorted(zip(ids, similarities), key=lambda x: x[1], reverse=True) if type(similarities)!=list else []
 
-def get_best_match(target:str, wikidata_search_res:dict, rank_fxn, inverse:bool=False):
+def rank_by_edit_dist(target:str, wikidata_search_res:dict, inverse:bool=False):
     """
-    Gets the best match for the target entity from the search results based on the rank function
+    Gets the ranking for each candidate based on edit distance from target
 
     @param target : GCMD entity to match
     @param wikidata_search_res : search results on WikiData for the target GCMD entity
-    @param rank_fxn : function used for ranking the candidates' match to target
-    @param inverse : boolean indicating whether a lower score means better match (inverse order)
     """
     ranking = []
     for res in wikidata_search_res:
-        score = rank_fxn(target.upper(),wikidata_search_res[res]["term"].upper())
-        if inverse:
-            score = -score
+        score = edit_distance(target.upper(),wikidata_search_res[res]["term"].upper())
         ranking.append((res,score))
-    return sorted(ranking, key=lambda x: x[1], reverse=True)
+    return sorted(ranking, key=lambda x: x[1], reverse=inverse)
 
 if __name__=="__main__":
     file = open("gcmd_ents.json","r")
@@ -65,7 +61,7 @@ if __name__=="__main__":
     num_samples = 0
     for uuid in gcmd_ents:
         if ground_truth[uuid]:
-            edit_dist_rank = get_best_match(gcmd_ents[uuid]["term"], wikidata_search_res[uuid], edit_distance, True)
+            edit_dist_rank = rank_by_edit_dist(gcmd_ents[uuid]["term"], wikidata_search_res[uuid])
             if edit_dist_rank[0][0]==ground_truth[uuid]:
                 edit_dist_correct+=1
             n_gram_rank = match_by_n_gram(gcmd_ents[uuid],wikidata_search_res[uuid])
