@@ -2,6 +2,7 @@ from nltk import edit_distance
 from json import load
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+import numpy as np
 
 def format_entity(entity):
     """
@@ -19,6 +20,7 @@ def rank_by_n_gram(target:dict,candidates:dict):
     @param candidates : potential matches to target from Wikidata
     @return : vector for the target, vectors for the candidates
     """
+    THRESHOLD = 0.05
     target = format_entity(target)
     ids = candidates.keys()
     candidate_texts = [format_entity(candidates[uuid]) for uuid in candidates]
@@ -27,10 +29,13 @@ def rank_by_n_gram(target:dict,candidates:dict):
     tfidf_matrix = vectorizer.fit_transform(texts)
     target_vector = tfidf_matrix[0]
     candidate_vectors = tfidf_matrix[1:]
-    similarities = []
+    similarities = ""
     if 0 not in candidate_vectors.shape:
         similarities = cosine_similarity(target_vector, candidate_vectors).flatten()
-    return sorted(zip(ids, similarities), key=lambda x: x[1], reverse=True) if type(similarities)!=list else []
+        similarities = zip(ids, similarities)
+        similarities = [(ent, score) for ent,score in similarities if score>=THRESHOLD]
+        print(similarities)
+    return sorted(similarities, key=lambda x: x[1], reverse=True) if type(similarities)!=str else []
 
 def rank_by_edit_dist(target:str, wikidata_search_res:dict, inverse:bool=False):
     """
@@ -39,10 +44,12 @@ def rank_by_edit_dist(target:str, wikidata_search_res:dict, inverse:bool=False):
     @param target : GCMD entity to match
     @param wikidata_search_res : search results on WikiData for the target GCMD entity
     """
+    THRESHOLD = 13
     ranking = []
     for res in wikidata_search_res:
         score = edit_distance(target.upper(),wikidata_search_res[res]["term"].upper())
-        ranking.append((res,score))
+        if score<THRESHOLD:
+            ranking.append((res,score))
     return sorted(ranking, key=lambda x: x[1], reverse=inverse)
 
 if __name__=="__main__":
