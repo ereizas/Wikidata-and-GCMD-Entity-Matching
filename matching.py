@@ -3,7 +3,7 @@ from json import load
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
-def format_entity(entity,):
+def format_entity(entity):
     """
     Formats the entity term and definition into a single string
 
@@ -12,9 +12,9 @@ def format_entity(entity,):
     """
     return f"{entity["term"]} - {entity["definition"]}".lower()
 
-def match_by_n_gram(target:dict,candidates:dict):
+def rank_by_n_gram(target:dict,candidates:dict):
     """
-    Creates a vectors for the target entity and the candidates and matches them based on cosine simalarity
+    Gets the ranking for each candidate based on cosine simalarity with the target
     @param target : GCMD entity to match in the format
     @param candidates : potential matches to target from Wikidata
     @return : vector for the target, vectors for the candidates
@@ -64,7 +64,7 @@ if __name__=="__main__":
             edit_dist_rank = rank_by_edit_dist(gcmd_ents[uuid]["term"], wikidata_search_res[uuid])
             if edit_dist_rank[0][0]==ground_truth[uuid]:
                 edit_dist_correct+=1
-            n_gram_rank = match_by_n_gram(gcmd_ents[uuid],wikidata_search_res[uuid])
+            n_gram_rank = rank_by_n_gram(gcmd_ents[uuid],wikidata_search_res[uuid])
             if n_gram_rank[0][0]==ground_truth[uuid]:
                 n_gram_correct+=1
             num_samples+=1
