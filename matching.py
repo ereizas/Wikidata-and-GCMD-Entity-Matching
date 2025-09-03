@@ -27,8 +27,10 @@ def match_by_n_gram(target:dict,candidates:dict):
     tfidf_matrix = vectorizer.fit_transform(texts)
     target_vector = tfidf_matrix[0]
     candidate_vectors = tfidf_matrix[1:]
-    similarities = cosine_similarity(target_vector, candidate_vectors).flatten()
-    return sorted(zip(ids, similarities), key=lambda x: x[1], reverse=True)
+    similarities = []
+    if 0 not in candidate_vectors.shape:
+        similarities = cosine_similarity(target_vector, candidate_vectors).flatten()
+    return sorted(zip(ids, similarities), key=lambda x: x[1], reverse=True) if type(similarities)!=list else []
 
 def get_best_match(target:str, wikidata_search_res:dict, rank_fxn, inverse:bool=False):
     """
