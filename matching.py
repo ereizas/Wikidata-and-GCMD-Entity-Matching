@@ -34,7 +34,6 @@ def rank_by_n_gram(target:dict,candidates:dict):
         similarities = cosine_similarity(target_vector, candidate_vectors).flatten()
         similarities = zip(ids, similarities)
         similarities = [(ent, score) for ent,score in similarities if score>=THRESHOLD]
-        print(similarities)
     return sorted(similarities, key=lambda x: x[1], reverse=True) if type(similarities)!=str else []
 
 def rank_by_edit_dist(target:str, wikidata_search_res:dict, inverse:bool=False):
@@ -62,23 +61,38 @@ if __name__=="__main__":
     file = open("gcmd_ent_wikidata_ent_matching_ground_truth.json","r")
     ground_truth = load(file)
     file.close()
-    #TODO: figure out thresholds if necessary
-    edit_dist_correct = 0
-    n_gram_correct = 0
+    edit_dist_stats = {"tp":0, "fp":0, "tn":0, "fn":0}
+    n_gram_stats = {"tp":0, "fp":0, "tn":0, "fn":0}
     num_samples = 0
     for uuid in gcmd_ents:
         edit_dist_rank = rank_by_edit_dist(gcmd_ents[uuid]["term"], wikidata_search_res[uuid])
         n_gram_rank = rank_by_n_gram(gcmd_ents[uuid],wikidata_search_res[uuid])
-        if ground_truth[uuid]:
-            if edit_dist_rank and edit_dist_rank[0][0]==ground_truth[uuid]:
-                edit_dist_correct+=1
-            if n_gram_rank and n_gram_rank[0][0]==ground_truth[uuid]:
-                n_gram_correct+=1
-        else:
-            if not edit_dist_rank and ground_truth[uuid]=="":
-                edit_dist_correct+=1
-            if not n_gram_rank and ground_truth[uuid]=="":
-                n_gram_correct+=1
+        #TODO: parse multiple match entities (in ground_truth[uuid].split(","))
+        if edit_dist_rank and edit_dist_rank[0][0]==ground_truth[uuid]:
+            edit_dist_stats["tp"]+=1
+        elif edit_dist_rank and edit_dist_rank[0][0]!=ground_truth[uuid]:
+            edit_dist_stats["fp"]+=1
+        elif not edit_dist_rank and ground_truth[uuid]=="":
+            edit_dist_stats["tn"]+=1
+        elif not edit_dist_rank and ground_truth[uuid]!="":
+            edit_dist_stats["fn"]+=1
+
+        if n_gram_rank and n_gram_rank[0][0]==ground_truth[uuid]:
+            n_gram_stats["tp"]+=1
+        elif n_gram_rank and n_gram_rank[0][0]!=ground_truth[uuid]:
+            n_gram_stats["fp"]+=1
+        if not n_gram_rank and ground_truth[uuid]=="":
+            n_gram_stats["tn"]+=1
+        elif not n_gram_rank and ground_truth[uuid]!="":
+            n_gram_stats["fn"]+=1  
         num_samples+=1
-    print(f"Accuracy of edit distance: {float(edit_dist_correct)/num_samples}")
-    print(f"Accuracy of n gram: {float(n_gram_correct)/num_samples}")
+    for ind in edit_dist_stats:
+        print(f"Edit dist {ind}: {edit_dist_stats[ind]}")
+    print("")
+    for ind in n_gram_stats:
+        print(f"N gram {ind}: {n_gram_stats[ind]}")
+    print("")
+    print(f"Precision of edit distance: {edit_dist_stats["tp"]/float(edit_dist_stats["tp"]+edit_dist_stats["fp"])}")
+    print(f"Recall of edit distance: {edit_dist_stats["tp"]/float(edit_dist_stats["tp"]+edit_dist_stats["fn"])}")
+    print(f"Precision of n gram: {n_gram_stats["tp"]/float(n_gram_stats["tp"]+n_gram_stats["fp"])}")
+    print(f"Recall of n gram: {n_gram_stats["tp"]/float(n_gram_stats["tp"]+n_gram_stats["fn"])}")
