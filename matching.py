@@ -92,7 +92,9 @@ if __name__=="__main__":
     for ind in n_gram_stats:
         print(f"N gram {ind}: {n_gram_stats[ind]}")
     print("")
+    print(f"Accuracy of edit distance: {(edit_dist_stats["tp"]+edit_dist_stats["tn"])/float(edit_dist_stats["tp"]+edit_dist_stats["fp"]+edit_dist_stats["tn"]+edit_dist_stats["fn"])}")
     print(f"Precision of edit distance: {edit_dist_stats["tp"]/float(edit_dist_stats["tp"]+edit_dist_stats["fp"])}")
     print(f"Recall of edit distance: {edit_dist_stats["tp"]/float(edit_dist_stats["tp"]+edit_dist_stats["fn"])}")
+    print(f"Accuracy of n gram: {(n_gram_stats["tp"]+n_gram_stats["tn"])/float(n_gram_stats["tp"]+n_gram_stats["fp"]+n_gram_stats["tn"]+n_gram_stats["fn"])}")
     print(f"Precision of n gram: {n_gram_stats["tp"]/float(n_gram_stats["tp"]+n_gram_stats["fp"])}")
     print(f"Recall of n gram: {n_gram_stats["tp"]/float(n_gram_stats["tp"]+n_gram_stats["fn"])}")
