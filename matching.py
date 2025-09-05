@@ -63,6 +63,7 @@ if __name__=="__main__":
     file.close()
     edit_dist_stats = {"tp":0, "fp":0, "tn":0, "fn":0}
     n_gram_stats = {"tp":0, "fp":0, "tn":0, "fn":0}
+    LABELED_SAMPLES = 475
     num_samples = 0
     for uuid in gcmd_ents:
         edit_dist_rank = rank_by_edit_dist(gcmd_ents[uuid]["term"], wikidata_search_res[uuid])
@@ -76,7 +77,6 @@ if __name__=="__main__":
             edit_dist_stats["tn"]+=1
         elif not edit_dist_rank and ground_truth[uuid]!="":
             edit_dist_stats["fn"]+=1
-
         if n_gram_rank and n_gram_rank[0][0]==ground_truth[uuid]:
             n_gram_stats["tp"]+=1
         elif n_gram_rank and n_gram_rank[0][0]!=ground_truth[uuid]:
@@ -86,6 +86,8 @@ if __name__=="__main__":
         elif not n_gram_rank and ground_truth[uuid]!="":
             n_gram_stats["fn"]+=1  
         num_samples+=1
+        if num_samples==LABELED_SAMPLES:
+            break
     for ind in edit_dist_stats:
         print(f"Edit dist {ind}: {edit_dist_stats[ind]}")
     print("")
