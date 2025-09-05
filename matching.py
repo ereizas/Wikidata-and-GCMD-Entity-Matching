@@ -66,25 +66,28 @@ if __name__=="__main__":
     LABELED_SAMPLES = 475
     num_samples = 0
     for uuid in gcmd_ents:
-        edit_dist_rank = rank_by_edit_dist(gcmd_ents[uuid]["term"], wikidata_search_res[uuid])
-        n_gram_rank = rank_by_n_gram(gcmd_ents[uuid],wikidata_search_res[uuid])
-        #TODO: parse multiple match entities (in ground_truth[uuid].split(","))
-        if edit_dist_rank and edit_dist_rank[0][0]==ground_truth[uuid]:
-            edit_dist_stats["tp"]+=1
-        elif edit_dist_rank and edit_dist_rank[0][0]!=ground_truth[uuid]:
-            edit_dist_stats["fp"]+=1
-        elif not edit_dist_rank and ground_truth[uuid]=="":
-            edit_dist_stats["tn"]+=1
-        elif not edit_dist_rank and ground_truth[uuid]!="":
-            edit_dist_stats["fn"]+=1
-        if n_gram_rank and n_gram_rank[0][0]==ground_truth[uuid]:
-            n_gram_stats["tp"]+=1
-        elif n_gram_rank and n_gram_rank[0][0]!=ground_truth[uuid]:
-            n_gram_stats["fp"]+=1
-        if not n_gram_rank and ground_truth[uuid]=="":
-            n_gram_stats["tn"]+=1
-        elif not n_gram_rank and ground_truth[uuid]!="":
-            n_gram_stats["fn"]+=1  
+        if wikidata_search_res[uuid]:
+            print(f"Term: {gcmd_ents[uuid]["term"]}")
+            edit_dist_rank = rank_by_edit_dist(gcmd_ents[uuid]["term"], wikidata_search_res[uuid])
+            print(f"Edit dist ranking: {edit_dist_rank}\n")
+            n_gram_rank = rank_by_n_gram(gcmd_ents[uuid],wikidata_search_res[uuid])
+            #TODO: parse multiple match entities (in ground_truth[uuid].split(","))
+            if edit_dist_rank and edit_dist_rank[0][0]==ground_truth[uuid]:
+                edit_dist_stats["tp"]+=1
+            elif edit_dist_rank and edit_dist_rank[0][0]!=ground_truth[uuid]:
+                edit_dist_stats["fp"]+=1
+            elif not edit_dist_rank and ground_truth[uuid]=="":
+                edit_dist_stats["tn"]+=1
+            elif not edit_dist_rank and ground_truth[uuid]!="":
+                edit_dist_stats["fn"]+=1
+            if n_gram_rank and n_gram_rank[0][0]==ground_truth[uuid]:
+                n_gram_stats["tp"]+=1
+            elif n_gram_rank and n_gram_rank[0][0]!=ground_truth[uuid]:
+                n_gram_stats["fp"]+=1
+            if not n_gram_rank and ground_truth[uuid]=="":
+                n_gram_stats["tn"]+=1
+            elif not n_gram_rank and ground_truth[uuid]!="":
+                n_gram_stats["fn"]+=1  
         num_samples+=1
         if num_samples==LABELED_SAMPLES:
             break
