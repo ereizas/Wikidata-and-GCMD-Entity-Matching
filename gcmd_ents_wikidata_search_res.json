@@ -511,10 +511,7 @@
     "Q343279": {
       "term": "convection-diffusion equation",
       "definition": "combination of the diffusion and convection (advection) equations",
-      "match": {
-        "alias": "label",
-        "text": "convection-diffusion equation"
-      }
+      "match": { "alias": "label", "text": "convection-diffusion equation" }
     },
     "Q128034": {
       "term": "convection zone",
@@ -5238,84 +5235,86 @@
     }
   },
   "e5815f58-8232-4c7f-b50d-ea71d73891a9": {
-    "Q57059513": {
-      "term": "Land use/land cover changes and climate: modeling analysis and observational evidence",
+    "Q38854383": {
+      "term": "Land Use Land Cover Changes in Detection of Water Quality: A Study Based on Remote Sensing and Multivariate Statistics",
+      "definition": "scientific article published on 9 March 2017",
+      "match": {
+        "alias": "label",
+        "text": "Land Use Land Cover Changes in Detection of Water Quality: A Study Based on Remote Sensing and Multivariate Statistics"
+      }
+    },
+    "Q60570633": {
+      "term": "Land Use Land Cover Change in the U.S. Great Lakes Basin 1992 to 2001",
       "definition": "article",
       "match": {
         "alias": "label",
-        "text": "Land use/land cover changes and climate: modeling analysis and observational evidence"
+        "text": "Land Use Land Cover Change in the U.S. Great Lakes Basin 1992 to 2001"
       }
     },
-    "Q57598321": {
-      "term": "LAND USE/LAND COVER CHANGE ANALYSIS AND ITS IMPACT ON SOIL PROPERTIES IN THE NORTHERN PART OF GADARIF REGION, SUDAN",
-      "definition": "article",
+    "Q129454843": {
+      "term": "Land use land cover change and intensity analysis of land transformation in and around a moist semi-deciduous forest in Ghana",
+      "definition": "scholarly article",
       "match": {
         "alias": "label",
-        "text": "LAND USE/LAND COVER CHANGE ANALYSIS AND ITS IMPACT ON SOIL PROPERTIES IN THE NORTHERN PART OF GADARIF REGION, SUDAN"
+        "text": "Land use land cover change and intensity analysis of land transformation in and around a moist semi-deciduous forest in Ghana"
       }
     },
-    "Q46464272": {
-      "term": "Land-use/land-cover change and ecosystem service provision in China",
-      "definition": "scientific article published on 27 October 2016",
+
+
+    "Q125373308": {
+      "term": "Land use Land cover change Assessment at Cement Industrial area using Landsat data-hybrid classification in part of YSR Kadapa District, Andhra Pradesh, India",
+      "definition": "scientific article published in 2022",
       "match": {
         "alias": "label",
-        "text": "Land-use/land-cover change and ecosystem service provision in China"
+        "text": "Land use Land cover change Assessment at Cement Industrial area using Landsat data-hybrid classification in part of YSR Kadapa District, Andhra Pradesh, India"
       }
     },
-    "Q58259659": {
-      "term": "Land-Use/Land-Cover Change Detection Using Improved Change-Vector Analysis",
-      "definition": "article",
+    "Q128104062": {
+      "term": "Land use land cover dynamics, its drivers and environmental implications in Lake Hawassa Watershed of Ethiopia",
+      "definition": "scholarly article",
       "match": {
         "alias": "label",
-        "text": "Land-Use/Land-Cover Change Detection Using Improved Change-Vector Analysis"
+        "text": "Land use land cover dynamics, its drivers and environmental implications in Lake Hawassa Watershed of Ethiopia"
       }
     },
-    "Q57766101": {
-      "term": "Land use/land cover and point sources of the 15 December 2003 dust storm in southwestern North America",
-      "definition": "article by Jeffrey A. Lee et al published April 2009 in Geomorphology",
+    "Q115449060": {
+      "term": "Land use land cover change and the resilience of social-ecological systems in a sub-region in South west Cameroon",
+      "definition": "scientific article published in 2021",
       "match": {
         "alias": "label",
-        "text": "Land use/land cover and point sources of the 15 December 2003 dust storm in southwestern North America"
+        "text": "Land use land cover change and the resilience of social-ecological systems in a sub-region in South west Cameroon"
       }
     },
-    "Q86957818": {
-      "term": "Land use/land cover change and their effects on landscape patterns in the Yanqi Basin, Xinjiang (China)",
-      "definition": "scientific article published on June 16, 2013",
+    "Q114102595": {
+      "term": "Land use Land Cover Classification of Burhner River Watershed Using Remote Sensing and GIS Technique",
+      "definition": "scientific article published in 2022",
       "match": {
         "alias": "label",
-        "text": "Land use/land cover change and their effects on landscape patterns in the Yanqi Basin, Xinjiang (China)"
+        "text": "Land use Land Cover Classification of Burhner River Watershed Using Remote Sensing and GIS Technique"
       }
     },
-    "Q55969348": {
-      "term": "Land use/land cover change effects on temperature trends at U.S. Climate Normals stations",
-      "definition": "article",
+    "Q134305353": {
+      "term": "Land use-land cover dynamics, and local perceptions of change drivers among Nyangatom agro-pastoralists, Southwest Ethiopia",
+      "definition": "scientific article published in 2023",
       "match": {
         "alias": "label",
-        "text": "Land use/land cover change effects on temperature trends at U.S. Climate Normals stations"
+        "text": "Land use-land cover dynamics, and local perceptions of change drivers among Nyangatom agro-pastoralists, Southwest Ethiopia"
       }
     },
-    "Q40845151": {
-      "term": "Land use/land cover water quality nexus: quantifying anthropogenic influences on surface water quality",
-      "definition": "scientific article",
+    "Q114128606": {
+      "term": "Land use land cover change detection through geospatial analysis in an Indian Biosphere Reserve",
+      "definition": "scientific article published in 2020",
       "match": {
         "alias": "label",
-        "text": "Land use/land cover water quality nexus: quantifying anthropogenic influences on surface water quality"
+        "text": "Land use land cover change detection through geospatial analysis in an Indian Biosphere Reserve"
       }
     },
-    "Q57751398": {
-      "term": "Land-use/land-cover change and its influence on surface temperature: a case study in Beijing City",
-      "definition": null,
+    "Q125356309": {
+      "term": "Land Use Land Cover Change in the fringe of eThekwini Municipality: Implications for urban green spaces using remote sensing",
+      "definition": "scientific article published in 2014",
       "match": {
         "alias": "label",
-        "text": "Land-use/land-cover change and its influence on surface temperature: a case study in Beijing City"
-      }
-    },
-    "Q58476381": {
-      "term": "Land-use/land-cover (LULC) change and socioeconomic conditions of local community in the central highlands of Ethiopia",
-      "definition": "scholarly article by T. Desalegn et al published 3 September 2014 in International Journal of Sustainable Development and World Ecology",
-      "match": {
-        "alias": "label",
-        "text": "Land-use/land-cover (LULC) change and socioeconomic conditions of local community in the central highlands of Ethiopia"
+        "text": "Land Use Land Cover Change in the fringe of eThekwini Municipality: Implications for urban green spaces using remote sensing"
       }
     }
   },
@@ -5598,12 +5597,36 @@
     }
   },
   "aa35a52f-e3d9-41bd-abd2-ec7e1a8101d1": {
-    "Q119670980": {
-      "term": "Snow/Ice and Cloud Responses to Future Climate Change around Hokkaido",
-      "definition": "scientific article published in 2011",
+    "Q109902947": {
+      "term": "Snow-ice contribution to the structure of sea ice in the Amundsen Sea, Antarctica",
+      "definition": "scientific article",
       "match": {
         "alias": "label",
-        "text": "Snow/Ice and Cloud Responses to Future Climate Change around Hokkaido"
+        "text": "Snow-ice contribution to the structure of sea ice in the Amundsen Sea, Antarctica"
+      }
+    },
+    "Q109915265": {
+      "term": "Snow-ice growth: a fresh-water flux inhibiting deep convection in the Weddell Sea, Antarctica",
+      "definition": "scholarly article",
+      "match": {
+        "alias": "label",
+        "text": "Snow-ice growth: a fresh-water flux inhibiting deep convection in the Weddell Sea, Antarctica"
+      }
+    },
+    "Q109904908": {
+      "term": "Snow-ice accretion and snow-cover depletion on Antarctic first-year sea-ice floes",
+      "definition": "scientific article",
+      "match": {
+        "alias": "label",
+        "text": "Snow-ice accretion and snow-cover depletion on Antarctic first-year sea-ice floes"
+      }
+    },
+    "Q91742660": {
+      "term": "Snow-Ice-Inspired Approach for Growth of Amorphous Silicon Nanotips",
+      "definition": "scientific article published on 02 May 2019",
+      "match": {
+        "alias": "label",
+        "text": "Snow-Ice-Inspired Approach for Growth of Amorphous Silicon Nanotips"
       }
     }
   },
@@ -6572,7 +6595,43 @@
       }
     }
   },
-  "57a3a5a7-66b9-4a4a-82da-7b09d82c684a": {},
+  "57a3a5a7-66b9-4a4a-82da-7b09d82c684a": {
+    "Q35734230": {
+      "term": "Lake Pond",
+      "definition": "lake in Washington County, New York, USA",
+      "match": { "alias": "label", "text": "Lake Pond" }
+    },
+    "Q49382504": {
+      "term": "Lake Pond",
+      "definition": "bay in Plaquemines Parish, United States of America",
+      "match": { "alias": "label", "text": "Lake Pond" }
+    },
+    "Q49382507": {
+      "term": "Lake Pond",
+      "definition": null,
+      "match": { "alias": "label", "text": "Lake Pond" }
+    },
+    "Q115552655": {
+      "term": "Lake Pond",
+      "definition": "pond in Ontario, Canada",
+      "match": { "alias": "label", "text": "Lake Pond" }
+    },
+    "Q112059697": {
+      "term": "Lake Pond",
+      "definition": "pond in Newfoundland and Labrador, Canada",
+      "match": { "alias": "label", "text": "Lake Pond" }
+    },
+    "Q31806369": {
+      "term": "Lake Ponderosa Dam",
+      "definition": "dam in Poweshiek County, Iowa, United States of America",
+      "match": { "alias": "label", "text": "Lake Ponderosa Dam" }
+    },
+    "Q34900709": {
+      "term": "Lake Ponderosa",
+      "definition": null,
+      "match": { "alias": "label", "text": "Lake Ponderosa" }
+    }
+  },
   "5c52009f-2c44-4db1-b62b-135c6181bad2": {
     "Q623": {
       "term": "carbon",
@@ -8102,81 +8161,78 @@
     }
   },
   "dafb67df-dc6d-40a0-8d94-e4621d2538ce": {
-    "Q38619463": {
-      "term": "Freeze/thaw-induced destabilization of the plasma membrane and the effects of cold acclimation",
+    "Q12130100": {
+      "term": "freeze thaw resistance",
+      "definition": "the property of solids to resist cyclic freezing and melting",
+      "match": { "alias": "label", "text": "freeze thaw resistance" }
+    },
+    "Q123492608": {
+      "term": "freeze-thaw cycle",
+      "definition": "series of freezing and thawing periods",
+      "match": { "alias": "label", "text": "freeze-thaw cycle" }
+    },
+    "Q118872889": {
+      "term": "Freeze-Thaw Durability Specification for Highway Concrete",
+      "definition": "2022 master's thesis submitted to the University of North Carolina at Charlotte by Joseph Dylan O'campo",
+      "match": {
+        "alias": "label",
+        "text": "Freeze-Thaw Durability Specification for Highway Concrete"
+      }
+    },
+    "Q50803671": {
+      "term": "Freeze-thaw-induced changes of the zona pellucida explains decreased rates of fertilization in frozen-thawed mouse oocytes.",
+      "definition": "scientific article published in November 1990",
+      "match": {
+        "alias": "label",
+        "text": "Freeze-thaw-induced changes of the zona pellucida explains decreased rates of fertilization in frozen-thawed mouse oocytes."
+      }
+    },
+    "Q45143976": {
+      "term": "Freeze-thawing intact human ovary with its vascular pedicle with a passive cooling device",
+      "definition": "scientific article published in November 2004",
+      "match": {
+        "alias": "label",
+        "text": "Freeze-thawing intact human ovary with its vascular pedicle with a passive cooling device"
+      }
+    },
+    "Q33713281": {
+      "term": "Freeze-thaw treatment effects on the dynamic mechanical properties of articular cartilage",
+      "definition": "scientific article published on October 8, 2010",
+      "match": {
+        "alias": "label",
+        "text": "Freeze-thaw treatment effects on the dynamic mechanical properties of articular cartilage"
+      }
+    },
+    "Q50772184": {
+      "term": "Freeze-thaw effects on phosphorus loss in runoff from manured and catch-cropped soils",
+      "definition": "scientific article published on 7 November 2005",
+      "match": {
+        "alias": "label",
+        "text": "Freeze-thaw effects on phosphorus loss in runoff from manured and catch-cropped soils"
+      }
+    },
+    "Q43234785": {
+      "term": "Freeze-thaw tolerance and clues to the winter survival of a soil community",
+      "definition": "scientific article published in March 2006",
+      "match": {
+        "alias": "label",
+        "text": "Freeze-thaw tolerance and clues to the winter survival of a soil community"
+      }
+    },
+    "Q41235050": {
+      "term": "Freeze-thaw cycles as drivers of complex ribozyme assembly",
+      "definition": "scientific article published on 4 May 2015",
+      "match": {
+        "alias": "label",
+        "text": "Freeze-thaw cycles as drivers of complex ribozyme assembly"
+      }
+    },
+    "Q33520334": {
+      "term": "Freeze-thaw-induced embolism in Pinus contorta: centrifuge experiments validate the 'thaw-expansion hypothesis' but conflict with ultrasonic emission data",
       "definition": "scientific article",
       "match": {
         "alias": "label",
-        "text": "Freeze/thaw-induced destabilization of the plasma membrane and the effects of cold acclimation"
-      }
-    },
-    "Q40207782": {
-      "term": "Freeze/thaw and pH effects on freshwater dissolved organic matter fluorescence and absorbance properties from a number of UK locations",
-      "definition": "scientific article published on 30 May 2007",
-      "match": {
-        "alias": "label",
-        "text": "Freeze/thaw and pH effects on freshwater dissolved organic matter fluorescence and absorbance properties from a number of UK locations"
-      }
-    },
-    "Q36010984": {
-      "term": "Freeze/Thaw-Induced Embolism: Probability of Critical Bubble Formation Depends on Speed of Ice Formation",
-      "definition": "scientific article published on June 6, 2012",
-      "match": {
-        "alias": "label",
-        "text": "Freeze/Thaw-Induced Embolism: Probability of Critical Bubble Formation Depends on Speed of Ice Formation"
-      }
-    },
-    "Q39135141": {
-      "term": "Freeze/thaw-induced embolism depends on nadir temperature: the heterogeneous hydration hypothesis",
-      "definition": "scientific article published on May 2006",
-      "match": {
-        "alias": "label",
-        "text": "Freeze/thaw-induced embolism depends on nadir temperature: the heterogeneous hydration hypothesis"
-      }
-    },
-    "Q46922096": {
-      "term": "Freeze/thaw stress induces organelle remodeling and membrane recycling in cryopreserved human mature oocytes",
-      "definition": "scientific article published in September 2016",
-      "match": {
-        "alias": "label",
-        "text": "Freeze/thaw stress induces organelle remodeling and membrane recycling in cryopreserved human mature oocytes"
-      }
-    },
-    "Q73884544": {
-      "term": "Freeze/thaw effects on lipid-bilayer vesicles investigated by differential scanning calorimetry",
-      "definition": "scientific article published on 01 September 2003",
-      "match": {
-        "alias": "label",
-        "text": "Freeze/thaw effects on lipid-bilayer vesicles investigated by differential scanning calorimetry"
-      }
-    },
-    "Q58052130": {
-      "term": "Freeze/thaw processes in complex permafrost landscapes of northern Siberia simulated using the TEM ecosystem model: impact of thermokarst ponds and lakes",
-      "definition": "article",
-      "match": {
-        "alias": "label",
-        "text": "Freeze/thaw processes in complex permafrost landscapes of northern Siberia simulated using the TEM ecosystem model: impact of thermokarst ponds and lakes"
-      }
-    },
-    "Q38996676": {
-      "term": "Freeze/thaw stress in Ceanothus of southern California chaparral",
-      "definition": "scientific article published on May 10, 2003",
-      "match": {
-        "alias": "label",
-        "text": "Freeze/thaw stress in Ceanothus of southern California chaparral"
-      }
-    },
-    "Q90358067": {
-      "term": "Freeze/thaw of IGG solutions",
-      "definition": "scientific article published on 04 December 2018",
-      "match": { "alias": "label", "text": "Freeze/thaw of IGG solutions" }
-    },
-    "Q36623417": {
-      "term": "Freeze/thaw stability of transferrin, and reference values obtained with kinetic nephelometry.",
-      "definition": "scientific article published on January 1984",
-      "match": {
-        "alias": "label",
-        "text": "Freeze/thaw stability of transferrin, and reference values obtained with kinetic nephelometry."
+        "text": "Freeze-thaw-induced embolism in Pinus contorta: centrifuge experiments validate the 'thaw-expansion hypothesis' but conflict with ultrasonic emission data"
       }
     }
   },
@@ -8980,10 +9036,7 @@
     "Q2071308": {
       "term": "Northwest Sumatra-Barrier Islands",
       "definition": "subgroup of the Austronesian language family",
-      "match": {
-        "alias": "alias",
-        "text": "Barrier Islands-Batak languages"
-      }
+      "match": { "alias": "alias", "text": "Barrier Islands-Batak languages" }
     },
     "Q4078910": {
       "term": "Baryernye Islands",
@@ -10972,12 +11025,36 @@
     }
   },
   "50b8fe04-9149-4b7f-a8b2-b33b1e3aa192": {
-    "Q119670980": {
-      "term": "Snow/Ice and Cloud Responses to Future Climate Change around Hokkaido",
-      "definition": "scientific article published in 2011",
+    "Q109902947": {
+      "term": "Snow-ice contribution to the structure of sea ice in the Amundsen Sea, Antarctica",
+      "definition": "scientific article",
       "match": {
         "alias": "label",
-        "text": "Snow/Ice and Cloud Responses to Future Climate Change around Hokkaido"
+        "text": "Snow-ice contribution to the structure of sea ice in the Amundsen Sea, Antarctica"
+      }
+    },
+    "Q109915265": {
+      "term": "Snow-ice growth: a fresh-water flux inhibiting deep convection in the Weddell Sea, Antarctica",
+      "definition": "scholarly article",
+      "match": {
+        "alias": "label",
+        "text": "Snow-ice growth: a fresh-water flux inhibiting deep convection in the Weddell Sea, Antarctica"
+      }
+    },
+    "Q109904908": {
+      "term": "Snow-ice accretion and snow-cover depletion on Antarctic first-year sea-ice floes",
+      "definition": "scientific article",
+      "match": {
+        "alias": "label",
+        "text": "Snow-ice accretion and snow-cover depletion on Antarctic first-year sea-ice floes"
+      }
+    },
+    "Q91742660": {
+      "term": "Snow-Ice-Inspired Approach for Growth of Amorphous Silicon Nanotips",
+      "definition": "scientific article published on 02 May 2019",
+      "match": {
+        "alias": "label",
+        "text": "Snow-Ice-Inspired Approach for Growth of Amorphous Silicon Nanotips"
       }
     }
   },
@@ -14001,10 +14078,7 @@
     "Q343279": {
       "term": "convection-diffusion equation",
       "definition": "combination of the diffusion and convection (advection) equations",
-      "match": {
-        "alias": "label",
-        "text": "convection-diffusion equation"
-      }
+      "match": { "alias": "label", "text": "convection-diffusion equation" }
     },
     "Q128034": {
       "term": "convection zone",
@@ -17254,16 +17328,7 @@
       "match": { "alias": "label", "text": "Data Processing Services" }
     }
   },
-  "b3a1e091-0bc2-4c9b-a89c-bd003fdd5889": {
-    "Q115354004": {
-      "term": "Afforestation/Reforestation Based on Gmelina Arborea (Verbenaceae) in Tropical Africa: Floristic and Structural Analysis, Carbon Storage and Economic Value (Cameroon)",
-      "definition": "scientific article published in 2018",
-      "match": {
-        "alias": "label",
-        "text": "Afforestation/Reforestation Based on Gmelina Arborea (Verbenaceae) in Tropical Africa: Floristic and Structural Analysis, Carbon Storage and Economic Value (Cameroon)"
-      }
-    }
-  },
+  "b3a1e091-0bc2-4c9b-a89c-bd003fdd5889": {},
   "a200e677-384a-42d6-8519-1c7735f0adb9": {
     "Q8081": {
       "term": "tornado",
@@ -19054,7 +19119,88 @@
       "match": { "alias": "label", "text": "Lidar Dana" }
     }
   },
-  "83150c54-5da8-4ee8-9579-19b95a8dc10c": {},
+  "83150c54-5da8-4ee8-9579-19b95a8dc10c": {
+    "Q37781345": {
+      "term": "Spectral Engineering in \u03c0-Conjugated Polymers with Intramolecular Donor\u2212Acceptor Interactions",
+      "definition": "scientific article published on August 20, 2010",
+      "match": {
+        "alias": "label",
+        "text": "Spectral Engineering in \u03c0-Conjugated Polymers with Intramolecular Donor\u2212Acceptor Interactions"
+      }
+    },
+    "Q45783220": {
+      "term": "Spectral engineering by Gaussian phase-matching for quantum photonics",
+      "definition": "scientific article published on March 11, 2013",
+      "match": {
+        "alias": "label",
+        "text": "Spectral engineering by Gaussian phase-matching for quantum photonics"
+      }
+    },
+    "Q53670804": {
+      "term": "Spectral Engineering of Slow Light, Cavity Line Narrowing, and Pulse Compression",
+      "definition": "scientific article published on October 31, 2013",
+      "match": {
+        "alias": "label",
+        "text": "Spectral Engineering of Slow Light, Cavity Line Narrowing, and Pulse Compression"
+      }
+    },
+    "Q33473765": {
+      "term": "Spectral engineering of bends and branches in microdisk coupled-resonator optical waveguides",
+      "definition": "scientific article",
+      "match": {
+        "alias": "label",
+        "text": "Spectral engineering of bends and branches in microdisk coupled-resonator optical waveguides"
+      }
+    },
+    "Q44086311": {
+      "term": "Spectral engineering by flexible tunings of optical Tamm states and Fabry-Perot cavity resonance",
+      "definition": "scientific article published in November 2013",
+      "match": {
+        "alias": "label",
+        "text": "Spectral engineering by flexible tunings of optical Tamm states and Fabry-Perot cavity resonance"
+      }
+    },
+    "Q59713368": {
+      "term": "Spectral engineering of coupled open-access microcavities",
+      "definition": null,
+      "match": {
+        "alias": "label",
+        "text": "Spectral engineering of coupled open-access microcavities"
+      }
+    },
+    "Q128895346": {
+      "term": "Spectral Engineering of Semitransparent Polymer Solar Cells for Greenhouse Applications",
+      "definition": "scholarly article",
+      "match": {
+        "alias": "label",
+        "text": "Spectral Engineering of Semitransparent Polymer Solar Cells for Greenhouse Applications"
+      }
+    },
+    "Q128818121": {
+      "term": "Spectral engineering and tunable thermoelectric behavior in a quasiperiodic ladder network",
+      "definition": "scholarly article",
+      "match": {
+        "alias": "label",
+        "text": "Spectral engineering and tunable thermoelectric behavior in a quasiperiodic ladder network"
+      }
+    },
+    "Q56829178": {
+      "term": "Spectral engineering of terahertz quantum cascade lasers using focused ion beam etched photonic lattices",
+      "definition": null,
+      "match": {
+        "alias": "label",
+        "text": "Spectral engineering of terahertz quantum cascade lasers using focused ion beam etched photonic lattices"
+      }
+    },
+    "Q60318919": {
+      "term": "Spectral engineering of entangled two-photon states",
+      "definition": null,
+      "match": {
+        "alias": "label",
+        "text": "Spectral engineering of entangled two-photon states"
+      }
+    }
+  },
   "ca776e14-fc3d-4044-9d1a-fd7c07569399": {
     "Q107399739": {
       "term": "Lidar Backscatter Properties of Al2O3 Rocket Exhaust Particles",
@@ -21462,16 +21608,7 @@
       }
     }
   },
-  "a28eeef3-b252-4309-957b-860d2e0f97ef": {
-    "Q115354004": {
-      "term": "Afforestation/Reforestation Based on Gmelina Arborea (Verbenaceae) in Tropical Africa: Floristic and Structural Analysis, Carbon Storage and Economic Value (Cameroon)",
-      "definition": "scientific article published in 2018",
-      "match": {
-        "alias": "label",
-        "text": "Afforestation/Reforestation Based on Gmelina Arborea (Verbenaceae) in Tropical Africa: Floristic and Structural Analysis, Carbon Storage and Economic Value (Cameroon)"
-      }
-    }
-  },
+  "a28eeef3-b252-4309-957b-860d2e0f97ef": {},
   "09a57dc7-3911-4a65-9f12-b819652b8671": {
     "Q25299795": {
       "term": "Rain",
@@ -24185,28 +24322,12 @@
     }
   },
   "75c312bc-79f9-4d74-a7c0-3c67c019196c": {
-    "Q118321349": {
-      "term": "Land use/land cover classification development from a geographical perspective",
-      "definition": null,
+    "Q114102595": {
+      "term": "Land use Land Cover Classification of Burhner River Watershed Using Remote Sensing and GIS Technique",
+      "definition": "scientific article published in 2022",
       "match": {
         "alias": "label",
-        "text": "Land use/land cover classification development from a geographical perspective"
-      }
-    },
-    "Q128626124": {
-      "term": "Land use/land cover classification using time series Landsat 8 images in a heavily urbanized area",
-      "definition": "scholarly article",
-      "match": {
-        "alias": "label",
-        "text": "Land use/land cover classification using time series Landsat 8 images in a heavily urbanized area"
-      }
-    },
-    "Q128606074": {
-      "term": "Land-Use/Land-Cover Classification Using Elephant Herding Algorithm",
-      "definition": "scholarly article",
-      "match": {
-        "alias": "label",
-        "text": "Land-Use/Land-Cover Classification Using Elephant Herding Algorithm"
+        "text": "Land use Land Cover Classification of Burhner River Watershed Using Remote Sensing and GIS Technique"
       }
     }
   },
@@ -26955,28 +27076,12 @@
     }
   },
   "5066def0-b14b-4a2c-b40f-dc9953860366": {
-    "Q118321349": {
-      "term": "Land use/land cover classification development from a geographical perspective",
-      "definition": null,
+    "Q114102595": {
+      "term": "Land use Land Cover Classification of Burhner River Watershed Using Remote Sensing and GIS Technique",
+      "definition": "scientific article published in 2022",
       "match": {
         "alias": "label",
-        "text": "Land use/land cover classification development from a geographical perspective"
-      }
-    },
-    "Q128626124": {
-      "term": "Land use/land cover classification using time series Landsat 8 images in a heavily urbanized area",
-      "definition": "scholarly article",
-      "match": {
-        "alias": "label",
-        "text": "Land use/land cover classification using time series Landsat 8 images in a heavily urbanized area"
-      }
-    },
-    "Q128606074": {
-      "term": "Land-Use/Land-Cover Classification Using Elephant Herding Algorithm",
-      "definition": "scholarly article",
-      "match": {
-        "alias": "label",
-        "text": "Land-Use/Land-Cover Classification Using Elephant Herding Algorithm"
+        "text": "Land use Land Cover Classification of Burhner River Watershed Using Remote Sensing and GIS Technique"
       }
     }
   },
@@ -32254,7 +32359,47 @@
       }
     }
   },
-  "76589134-8d93-4e45-8476-f04497181d14": {},
+  "76589134-8d93-4e45-8476-f04497181d14": {
+    "Q2149452": {
+      "term": "mountain tundra",
+      "definition": "biome that does not contain trees because it is at high elevation, with an associated harsh climate",
+      "match": { "alias": "alias", "text": "alpine tundra" }
+    },
+    "Q24688603": {
+      "term": "Carex microchaeta subsp. nesophila",
+      "definition": "subspecies of plant",
+      "match": { "alias": "alias", "text": "Alpine Tundra Sedge" }
+    },
+    "Q24688602": {
+      "term": "Carex microchaeta subsp. microchaeta",
+      "definition": "subspecies of plant",
+      "match": { "alias": "alias", "text": "Alpine Tundra Sedge" }
+    },
+    "Q112767310": {
+      "term": "Alpine Tundra Contraction under Future Warming Scenarios in Europe",
+      "definition": "scientific article published on 02 July 2020",
+      "match": {
+        "alias": "label",
+        "text": "Alpine Tundra Contraction under Future Warming Scenarios in Europe"
+      }
+    },
+    "Q112831987": {
+      "term": "Alpine tundra species phenology is mostly driven by climate-related variables rather than by photoperiod",
+      "definition": "scientific article published on 20 August 2020",
+      "match": {
+        "alias": "label",
+        "text": "Alpine tundra species phenology is mostly driven by climate-related variables rather than by photoperiod"
+      }
+    },
+    "Q71927963": {
+      "term": "Alpine tundra change after road building",
+      "definition": "journal article; published in Nature on 1974-6",
+      "match": {
+        "alias": "label",
+        "text": "Alpine tundra change after road building"
+      }
+    }
+  },
   "2e7a8b01-ee3b-44e2-95ef-cf4603b05204": {
     "Q161073": {
       "term": "Cycas",
@@ -36818,10 +36963,7 @@
     "Q64273088": {
       "term": "Cloud Heights - Kinematic Method",
       "definition": null,
-      "match": {
-        "alias": "label",
-        "text": "Cloud Heights - Kinematic Method"
-      }
+      "match": { "alias": "label", "text": "Cloud Heights - Kinematic Method" }
     },
     "Q80880533": {
       "term": "Cloud-Heights",
@@ -37651,7 +37793,13 @@
       }
     }
   },
-  "3d64f625-fb84-4178-ad08-4be2dd15979b": {},
+  "3d64f625-fb84-4178-ad08-4be2dd15979b": {
+    "Q50552802": {
+      "term": "Lakes Reservoirs and Ponds",
+      "definition": "Academic journal published by Romanian Limnogeographical Association, covering the subjects: Science: Biology (General): Ecology",
+      "match": { "alias": "label", "text": "Lakes Reservoirs and Ponds" }
+    }
+  },
   "b409a30b-0e3f-4592-bec9-7d371797b4a9": {},
   "f24c4f33-5b89-4e8d-8de7-296078a7f18a": {
     "Q33741": {
@@ -39240,10 +39388,7 @@
     "Q343279": {
       "term": "convection-diffusion equation",
       "definition": "combination of the diffusion and convection (advection) equations",
-      "match": {
-        "alias": "label",
-        "text": "convection-diffusion equation"
-      }
+      "match": { "alias": "label", "text": "convection-diffusion equation" }
     },
     "Q128034": {
       "term": "convection zone",
@@ -41684,7 +41829,21 @@
       }
     }
   },
-  "dc2088f9-ffb7-41c3-b0a1-856ecfec89de": {},
+  "dc2088f9-ffb7-41c3-b0a1-856ecfec89de": {
+    "Q5341224": {
+      "term": "Education outreach",
+      "definition": "variation of Cause Marketing and/or Strategic Philanthropy and other focused Public Affairs activities that are specific to education",
+      "match": { "alias": "label", "text": "Education outreach" }
+    },
+    "Q47872936": {
+      "term": "Education outreach: taking the \"fire\" beyond the lecture hall and lab. 2003 Arthur C. Guyton Teacher of the Year Award",
+      "definition": "scientific article published in December 2003",
+      "match": {
+        "alias": "label",
+        "text": "Education outreach: taking the \"fire\" beyond the lecture hall and lab. 2003 Arthur C. Guyton Teacher of the Year Award"
+      }
+    }
+  },
   "6a7eed90-327a-4609-b952-c9617445a1d1": {
     "Q179918": {
       "term": "permafrost",
@@ -53262,60 +53421,75 @@
     }
   },
   "9c2f3bee-4629-4607-9962-12fe919594a0": {
-    "Q44218382": {
-      "term": "Oxidation/reduction state of cytochrome oxidase during repetitive contractions",
-      "definition": "scientific article published in November 1989",
+    "Q82682": {
+      "term": "redox",
+      "definition": "chemical reaction involving reduction and oxidation of different species",
+      "match": { "alias": "alias", "text": "oxidation-reduction" }
+    },
+    "Q22326951": {
+      "term": "oxidoreductase complex",
+      "definition": "Any protein complex that possesses oxidoreductase activity.",
+      "match": { "alias": "alias", "text": "oxidation-reduction complex" }
+    },
+    "Q63397607": {
+      "term": "Oxidation-reduction Homeostasis in Cognitive Impairment Patients After Stroke",
+      "definition": "clinical trial",
       "match": {
         "alias": "label",
-        "text": "Oxidation/reduction state of cytochrome oxidase during repetitive contractions"
+        "text": "Oxidation-reduction Homeostasis in Cognitive Impairment Patients After Stroke"
       }
     },
-    "Q48553273": {
-      "term": "Oxidation/reduction of methionine residues in CCK: a study by radioimmunoassay and isocratic reverse phase high pressure liquid chromatography",
-      "definition": "scientific article published in January 1985",
+    "Q131747439": {
+      "term": "Oxidation reduction for SiOC film",
+      "definition": "US patent 11133177",
+      "match": { "alias": "label", "text": "Oxidation reduction for SiOC film" }
+    },
+    "Q39611521": {
+      "term": "Oxidation-reduction (redox) controls fetal hypoplastic lung growth.",
+      "definition": "scientific article published on August 2002",
       "match": {
         "alias": "label",
-        "text": "Oxidation/reduction of methionine residues in CCK: a study by radioimmunoassay and isocratic reverse phase high pressure liquid chromatography"
+        "text": "Oxidation-reduction (redox) controls fetal hypoplastic lung growth."
       }
     },
-    "Q81187240": {
-      "term": "Oxidation/reduction kinetics of supported Rh/Rh2O3 nanoparticles in plug flow conditions using dispersive EXAFS",
-      "definition": "scientific article published on 22 November 2004",
+    "Q57397577": {
+      "term": "Oxidation-reduction and the molecular mechanism of a regulatory RNA-protein interaction",
+      "definition": "scientific article published in Science",
       "match": {
         "alias": "label",
-        "text": "Oxidation/reduction kinetics of supported Rh/Rh2O3 nanoparticles in plug flow conditions using dispersive EXAFS"
+        "text": "Oxidation-reduction and the molecular mechanism of a regulatory RNA-protein interaction"
       }
     },
-    "Q42614478": {
-      "term": "Oxidation/reduction explains heterogeneity of pancreatic somatostatin",
-      "definition": "scientific article published on February 1991",
+    "Q71772310": {
+      "term": "Oxidation-reduction potential dependence of the interaction of cytochromes, bacteriochlorophyll and carotenoids at 77 degrees K in chromatophores of Chromatium D and Rhodopseudomonas gelatinosa",
+      "definition": "scientific article published on 01 January 1971",
       "match": {
         "alias": "label",
-        "text": "Oxidation/reduction explains heterogeneity of pancreatic somatostatin"
+        "text": "Oxidation-reduction potential dependence of the interaction of cytochromes, bacteriochlorophyll and carotenoids at 77 degrees K in chromatophores of Chromatium D and Rhodopseudomonas gelatinosa"
       }
     },
-    "Q128655815": {
-      "term": "Oxidation/reduction control of the VO2 nanoparticle in the nano-confined space of the hollow silica nanoparticle",
-      "definition": "scholarly article",
+    "Q40224778": {
+      "term": "Oxidation-reduction ratio studies of mitochondria in freeze-trapped samples. NADH and flavoprotein fluorescence signals",
+      "definition": "scientific article published on June 10, 1979",
       "match": {
         "alias": "label",
-        "text": "Oxidation/reduction control of the VO2 nanoparticle in the nano-confined space of the hollow silica nanoparticle"
+        "text": "Oxidation-reduction ratio studies of mitochondria in freeze-trapped samples. NADH and flavoprotein fluorescence signals"
       }
     },
-    "Q126805781": {
-      "term": "Oxidation/reduction studies with forskolin",
-      "definition": "scholarly article",
+    "Q42180985": {
+      "term": "Oxidation-reduction properties of the cytochrome b found in the plasma-membrane fraction of human neutrophils. A possible oxidase in the respiratory burst",
+      "definition": "scientific article published on February 15, 1981",
       "match": {
         "alias": "label",
-        "text": "Oxidation/reduction studies with forskolin"
+        "text": "Oxidation-reduction properties of the cytochrome b found in the plasma-membrane fraction of human neutrophils. A possible oxidase in the respiratory burst"
       }
     },
-    "Q129079018": {
-      "term": "Oxidation/Reduction Effects in Depression of Sulfide Minerals - A Review",
-      "definition": "scholarly article",
+    "Q68617808": {
+      "term": "Oxidation-reduction potentials of cytochromes in mitochondria",
+      "definition": "scientific article published on 01 December 1970",
       "match": {
         "alias": "label",
-        "text": "Oxidation/Reduction Effects in Depression of Sulfide Minerals - A Review"
+        "text": "Oxidation-reduction potentials of cytochromes in mitochondria"
       }
     }
   },
@@ -54299,7 +54473,13 @@
       }
     }
   },
-  "c1111b23-9946-497a-8829-b58da3fce720": {},
+  "c1111b23-9946-497a-8829-b58da3fce720": {
+    "Q3333932": {
+      "term": "marine weather forecasting",
+      "definition": "forecasts of weather conditions at sea",
+      "match": { "alias": "label", "text": "marine weather forecasting" }
+    }
+  },
   "9becd489-f8fb-4dbb-b920-6c8399100515": {
     "Q104050874": {
       "term": "Radiolarians from the Western Margin of the Rockall Plateau: Deep Sea Drilling Project Leg 81",
@@ -54462,81 +54642,78 @@
     }
   },
   "4453ac7c-1869-4aef-8b06-dbdc9e63e245": {
-    "Q38619463": {
-      "term": "Freeze/thaw-induced destabilization of the plasma membrane and the effects of cold acclimation",
+    "Q12130100": {
+      "term": "freeze thaw resistance",
+      "definition": "the property of solids to resist cyclic freezing and melting",
+      "match": { "alias": "label", "text": "freeze thaw resistance" }
+    },
+    "Q123492608": {
+      "term": "freeze-thaw cycle",
+      "definition": "series of freezing and thawing periods",
+      "match": { "alias": "label", "text": "freeze-thaw cycle" }
+    },
+    "Q118872889": {
+      "term": "Freeze-Thaw Durability Specification for Highway Concrete",
+      "definition": "2022 master's thesis submitted to the University of North Carolina at Charlotte by Joseph Dylan O'campo",
+      "match": {
+        "alias": "label",
+        "text": "Freeze-Thaw Durability Specification for Highway Concrete"
+      }
+    },
+    "Q50803671": {
+      "term": "Freeze-thaw-induced changes of the zona pellucida explains decreased rates of fertilization in frozen-thawed mouse oocytes.",
+      "definition": "scientific article published in November 1990",
+      "match": {
+        "alias": "label",
+        "text": "Freeze-thaw-induced changes of the zona pellucida explains decreased rates of fertilization in frozen-thawed mouse oocytes."
+      }
+    },
+    "Q45143976": {
+      "term": "Freeze-thawing intact human ovary with its vascular pedicle with a passive cooling device",
+      "definition": "scientific article published in November 2004",
+      "match": {
+        "alias": "label",
+        "text": "Freeze-thawing intact human ovary with its vascular pedicle with a passive cooling device"
+      }
+    },
+    "Q33713281": {
+      "term": "Freeze-thaw treatment effects on the dynamic mechanical properties of articular cartilage",
+      "definition": "scientific article published on October 8, 2010",
+      "match": {
+        "alias": "label",
+        "text": "Freeze-thaw treatment effects on the dynamic mechanical properties of articular cartilage"
+      }
+    },
+    "Q50772184": {
+      "term": "Freeze-thaw effects on phosphorus loss in runoff from manured and catch-cropped soils",
+      "definition": "scientific article published on 7 November 2005",
+      "match": {
+        "alias": "label",
+        "text": "Freeze-thaw effects on phosphorus loss in runoff from manured and catch-cropped soils"
+      }
+    },
+    "Q43234785": {
+      "term": "Freeze-thaw tolerance and clues to the winter survival of a soil community",
+      "definition": "scientific article published in March 2006",
+      "match": {
+        "alias": "label",
+        "text": "Freeze-thaw tolerance and clues to the winter survival of a soil community"
+      }
+    },
+    "Q41235050": {
+      "term": "Freeze-thaw cycles as drivers of complex ribozyme assembly",
+      "definition": "scientific article published on 4 May 2015",
+      "match": {
+        "alias": "label",
+        "text": "Freeze-thaw cycles as drivers of complex ribozyme assembly"
+      }
+    },
+    "Q33520334": {
+      "term": "Freeze-thaw-induced embolism in Pinus contorta: centrifuge experiments validate the 'thaw-expansion hypothesis' but conflict with ultrasonic emission data",
       "definition": "scientific article",
       "match": {
         "alias": "label",
-        "text": "Freeze/thaw-induced destabilization of the plasma membrane and the effects of cold acclimation"
-      }
-    },
-    "Q40207782": {
-      "term": "Freeze/thaw and pH effects on freshwater dissolved organic matter fluorescence and absorbance properties from a number of UK locations",
-      "definition": "scientific article published on 30 May 2007",
-      "match": {
-        "alias": "label",
-        "text": "Freeze/thaw and pH effects on freshwater dissolved organic matter fluorescence and absorbance properties from a number of UK locations"
-      }
-    },
-    "Q36010984": {
-      "term": "Freeze/Thaw-Induced Embolism: Probability of Critical Bubble Formation Depends on Speed of Ice Formation",
-      "definition": "scientific article published on June 6, 2012",
-      "match": {
-        "alias": "label",
-        "text": "Freeze/Thaw-Induced Embolism: Probability of Critical Bubble Formation Depends on Speed of Ice Formation"
-      }
-    },
-    "Q39135141": {
-      "term": "Freeze/thaw-induced embolism depends on nadir temperature: the heterogeneous hydration hypothesis",
-      "definition": "scientific article published on May 2006",
-      "match": {
-        "alias": "label",
-        "text": "Freeze/thaw-induced embolism depends on nadir temperature: the heterogeneous hydration hypothesis"
-      }
-    },
-    "Q46922096": {
-      "term": "Freeze/thaw stress induces organelle remodeling and membrane recycling in cryopreserved human mature oocytes",
-      "definition": "scientific article published in September 2016",
-      "match": {
-        "alias": "label",
-        "text": "Freeze/thaw stress induces organelle remodeling and membrane recycling in cryopreserved human mature oocytes"
-      }
-    },
-    "Q73884544": {
-      "term": "Freeze/thaw effects on lipid-bilayer vesicles investigated by differential scanning calorimetry",
-      "definition": "scientific article published on 01 September 2003",
-      "match": {
-        "alias": "label",
-        "text": "Freeze/thaw effects on lipid-bilayer vesicles investigated by differential scanning calorimetry"
-      }
-    },
-    "Q58052130": {
-      "term": "Freeze/thaw processes in complex permafrost landscapes of northern Siberia simulated using the TEM ecosystem model: impact of thermokarst ponds and lakes",
-      "definition": "article",
-      "match": {
-        "alias": "label",
-        "text": "Freeze/thaw processes in complex permafrost landscapes of northern Siberia simulated using the TEM ecosystem model: impact of thermokarst ponds and lakes"
-      }
-    },
-    "Q38996676": {
-      "term": "Freeze/thaw stress in Ceanothus of southern California chaparral",
-      "definition": "scientific article published on May 10, 2003",
-      "match": {
-        "alias": "label",
-        "text": "Freeze/thaw stress in Ceanothus of southern California chaparral"
-      }
-    },
-    "Q90358067": {
-      "term": "Freeze/thaw of IGG solutions",
-      "definition": "scientific article published on 04 December 2018",
-      "match": { "alias": "label", "text": "Freeze/thaw of IGG solutions" }
-    },
-    "Q36623417": {
-      "term": "Freeze/thaw stability of transferrin, and reference values obtained with kinetic nephelometry.",
-      "definition": "scientific article published on January 1984",
-      "match": {
-        "alias": "label",
-        "text": "Freeze/thaw stability of transferrin, and reference values obtained with kinetic nephelometry."
+        "text": "Freeze-thaw-induced embolism in Pinus contorta: centrifuge experiments validate the 'thaw-expansion hypothesis' but conflict with ultrasonic emission data"
       }
     }
   },
@@ -58853,28 +59030,12 @@
     }
   },
   "4f938731-d686-4d89-b72b-ff60474bb1f0": {
-    "Q58068413": {
-      "term": "Calibration/Validation of an Altimeter Wave Period Model and Application to TOPEX/Poseidon and Jason-1 Altimeters",
-      "definition": "article",
+    "Q125459847": {
+      "term": "Calibration validation using geometric features in galvanometric scanning systems",
+      "definition": "US patent 11525968",
       "match": {
         "alias": "label",
-        "text": "Calibration/Validation of an Altimeter Wave Period Model and Application to TOPEX/Poseidon and Jason-1 Altimeters"
-      }
-    },
-    "Q57444795": {
-      "term": "Calibration/Validation of the SeaWinds Radiometer Rain Rate Algorithm",
-      "definition": null,
-      "match": {
-        "alias": "label",
-        "text": "Calibration/Validation of the SeaWinds Radiometer Rain Rate Algorithm"
-      }
-    },
-    "Q125124999": {
-      "term": "CALIBRATION/VALIDATION OF LANDSAT-DERIVED OCEAN COLOUR PRODUCTS  IN BOSTON HARBOUR",
-      "definition": "scientific article published in 2016",
-      "match": {
-        "alias": "label",
-        "text": "CALIBRATION/VALIDATION OF LANDSAT-DERIVED OCEAN COLOUR PRODUCTS  IN BOSTON HARBOUR"
+        "text": "Calibration validation using geometric features in galvanometric scanning systems"
       }
     }
   },
@@ -62105,7 +62266,13 @@
       "match": { "alias": "label", "text": "Ice extent changes with the wind" }
     }
   },
-  "b59e188c-49b8-41b3-94c4-0bc1dbb554fe": {},
+  "b59e188c-49b8-41b3-94c4-0bc1dbb554fe": {
+    "Q16684002": {
+      "term": "Convergence-divergence zone",
+      "definition": null,
+      "match": { "alias": "label", "text": "Convergence-divergence zone" }
+    }
+  },
   "e26803a0-82ea-40c4-a41a-9e222c9bd09a": {
     "Q11827292": {
       "term": "coastal process",
@@ -63072,7 +63239,56 @@
       }
     }
   },
-  "8cc052a0-314a-408d-8c2d-c8245bab2465": {},
+  "8cc052a0-314a-408d-8c2d-c8245bab2465": {
+    "Q61534059": {
+      "term": "Disease epidemic and a marine heat wave are associated with the continental-scale collapse of a pivotal predator (Pycnopodia helianthoides).",
+      "definition": "scientific article published on 30 January 2019",
+      "match": {
+        "alias": "label",
+        "text": "Disease epidemic and a marine heat wave are associated with the continental-scale collapse of a pivotal predator (Pycnopodia helianthoides)."
+      }
+    },
+    "Q44089249": {
+      "term": "Disease epidemic killing only US bats",
+      "definition": "scientific article published in January 2010",
+      "match": {
+        "alias": "label",
+        "text": "Disease epidemic killing only US bats"
+      }
+    },
+    "Q39291478": {
+      "term": "Disease epidemics: lessons for resilience in an increasingly connected world",
+      "definition": "scientific article published on 25 May 2016",
+      "match": {
+        "alias": "label",
+        "text": "Disease epidemics: lessons for resilience in an increasingly connected world"
+      }
+    },
+    "Q113259912": {
+      "term": "Disease Epidemics and Entrepreneurial Tipping Points: Models of Venture Viability from Customer and Financier Perspectives",
+      "definition": "scientific article published on 28 December 2011",
+      "match": {
+        "alias": "label",
+        "text": "Disease Epidemics and Entrepreneurial Tipping Points: Models of Venture Viability from Customer and Financier Perspectives"
+      }
+    },
+    "Q113270447": {
+      "term": "DISEASE EPIDEMICS AND HOST GENETIC RESISTANCE IN BRITISH CROPS",
+      "definition": "scientific article published on 17 December 2006",
+      "match": {
+        "alias": "label",
+        "text": "DISEASE EPIDEMICS AND HOST GENETIC RESISTANCE IN BRITISH CROPS"
+      }
+    },
+    "Q111344847": {
+      "term": "Disease epidemics and plant competition: control of Senecio vulgaris with Puccinia lagenophorae",
+      "definition": "scientific article published on 18 August 2005",
+      "match": {
+        "alias": "label",
+        "text": "Disease epidemics and plant competition: control of Senecio vulgaris with Puccinia lagenophorae"
+      }
+    }
+  },
   "e5563c99-0fb6-43a9-8e20-6b47b1144394": {
     "Q424418": {
       "term": "nitrogen oxide",
@@ -67216,10 +67432,7 @@
     "Q581103": {
       "term": "extreme weather events of 535-536",
       "definition": "historical period of unusually severe weather",
-      "match": {
-        "alias": "label",
-        "text": "extreme weather events of 535-536"
-      }
+      "match": { "alias": "label", "text": "extreme weather events of 535-536" }
     },
     "Q84857556": {
       "term": "Extreme weather and violence in Russia: Evidence across age and gender",
@@ -70864,7 +71077,16 @@
       }
     }
   },
-  "843a6584-e3f2-4a75-a003-cc430fd8c22c": {},
+  "843a6584-e3f2-4a75-a003-cc430fd8c22c": {
+    "Q129087418": {
+      "term": "Hazard mitigation planning utilizing the HAZUS-MH Flood Model and Hurricane Wind Model",
+      "definition": "scholarly article",
+      "match": {
+        "alias": "label",
+        "text": "Hazard mitigation planning utilizing the HAZUS-MH Flood Model and Hurricane Wind Model"
+      }
+    }
+  },
   "8f4e90e0-aea0-40cd-b781-a6a69a6e6cb3": {
     "Q15761330": {
       "term": "Radiocarbon",
@@ -82547,10 +82769,7 @@
     "Q2071308": {
       "term": "Northwest Sumatra-Barrier Islands",
       "definition": "subgroup of the Austronesian language family",
-      "match": {
-        "alias": "alias",
-        "text": "Barrier Islands-Batak languages"
-      }
+      "match": { "alias": "alias", "text": "Barrier Islands-Batak languages" }
     },
     "Q4078910": {
       "term": "Baryernye Islands",
@@ -85755,81 +85974,78 @@
     }
   },
   "f7849055-fa5c-437c-a8c6-08c7db3a3b0a": {
-    "Q38619463": {
-      "term": "Freeze/thaw-induced destabilization of the plasma membrane and the effects of cold acclimation",
+    "Q12130100": {
+      "term": "freeze thaw resistance",
+      "definition": "the property of solids to resist cyclic freezing and melting",
+      "match": { "alias": "label", "text": "freeze thaw resistance" }
+    },
+    "Q123492608": {
+      "term": "freeze-thaw cycle",
+      "definition": "series of freezing and thawing periods",
+      "match": { "alias": "label", "text": "freeze-thaw cycle" }
+    },
+    "Q118872889": {
+      "term": "Freeze-Thaw Durability Specification for Highway Concrete",
+      "definition": "2022 master's thesis submitted to the University of North Carolina at Charlotte by Joseph Dylan O'campo",
+      "match": {
+        "alias": "label",
+        "text": "Freeze-Thaw Durability Specification for Highway Concrete"
+      }
+    },
+    "Q50803671": {
+      "term": "Freeze-thaw-induced changes of the zona pellucida explains decreased rates of fertilization in frozen-thawed mouse oocytes.",
+      "definition": "scientific article published in November 1990",
+      "match": {
+        "alias": "label",
+        "text": "Freeze-thaw-induced changes of the zona pellucida explains decreased rates of fertilization in frozen-thawed mouse oocytes."
+      }
+    },
+    "Q45143976": {
+      "term": "Freeze-thawing intact human ovary with its vascular pedicle with a passive cooling device",
+      "definition": "scientific article published in November 2004",
+      "match": {
+        "alias": "label",
+        "text": "Freeze-thawing intact human ovary with its vascular pedicle with a passive cooling device"
+      }
+    },
+    "Q33713281": {
+      "term": "Freeze-thaw treatment effects on the dynamic mechanical properties of articular cartilage",
+      "definition": "scientific article published on October 8, 2010",
+      "match": {
+        "alias": "label",
+        "text": "Freeze-thaw treatment effects on the dynamic mechanical properties of articular cartilage"
+      }
+    },
+    "Q50772184": {
+      "term": "Freeze-thaw effects on phosphorus loss in runoff from manured and catch-cropped soils",
+      "definition": "scientific article published on 7 November 2005",
+      "match": {
+        "alias": "label",
+        "text": "Freeze-thaw effects on phosphorus loss in runoff from manured and catch-cropped soils"
+      }
+    },
+    "Q43234785": {
+      "term": "Freeze-thaw tolerance and clues to the winter survival of a soil community",
+      "definition": "scientific article published in March 2006",
+      "match": {
+        "alias": "label",
+        "text": "Freeze-thaw tolerance and clues to the winter survival of a soil community"
+      }
+    },
+    "Q41235050": {
+      "term": "Freeze-thaw cycles as drivers of complex ribozyme assembly",
+      "definition": "scientific article published on 4 May 2015",
+      "match": {
+        "alias": "label",
+        "text": "Freeze-thaw cycles as drivers of complex ribozyme assembly"
+      }
+    },
+    "Q33520334": {
+      "term": "Freeze-thaw-induced embolism in Pinus contorta: centrifuge experiments validate the 'thaw-expansion hypothesis' but conflict with ultrasonic emission data",
       "definition": "scientific article",
       "match": {
         "alias": "label",
-        "text": "Freeze/thaw-induced destabilization of the plasma membrane and the effects of cold acclimation"
-      }
-    },
-    "Q40207782": {
-      "term": "Freeze/thaw and pH effects on freshwater dissolved organic matter fluorescence and absorbance properties from a number of UK locations",
-      "definition": "scientific article published on 30 May 2007",
-      "match": {
-        "alias": "label",
-        "text": "Freeze/thaw and pH effects on freshwater dissolved organic matter fluorescence and absorbance properties from a number of UK locations"
-      }
-    },
-    "Q36010984": {
-      "term": "Freeze/Thaw-Induced Embolism: Probability of Critical Bubble Formation Depends on Speed of Ice Formation",
-      "definition": "scientific article published on June 6, 2012",
-      "match": {
-        "alias": "label",
-        "text": "Freeze/Thaw-Induced Embolism: Probability of Critical Bubble Formation Depends on Speed of Ice Formation"
-      }
-    },
-    "Q39135141": {
-      "term": "Freeze/thaw-induced embolism depends on nadir temperature: the heterogeneous hydration hypothesis",
-      "definition": "scientific article published on May 2006",
-      "match": {
-        "alias": "label",
-        "text": "Freeze/thaw-induced embolism depends on nadir temperature: the heterogeneous hydration hypothesis"
-      }
-    },
-    "Q46922096": {
-      "term": "Freeze/thaw stress induces organelle remodeling and membrane recycling in cryopreserved human mature oocytes",
-      "definition": "scientific article published in September 2016",
-      "match": {
-        "alias": "label",
-        "text": "Freeze/thaw stress induces organelle remodeling and membrane recycling in cryopreserved human mature oocytes"
-      }
-    },
-    "Q73884544": {
-      "term": "Freeze/thaw effects on lipid-bilayer vesicles investigated by differential scanning calorimetry",
-      "definition": "scientific article published on 01 September 2003",
-      "match": {
-        "alias": "label",
-        "text": "Freeze/thaw effects on lipid-bilayer vesicles investigated by differential scanning calorimetry"
-      }
-    },
-    "Q58052130": {
-      "term": "Freeze/thaw processes in complex permafrost landscapes of northern Siberia simulated using the TEM ecosystem model: impact of thermokarst ponds and lakes",
-      "definition": "article",
-      "match": {
-        "alias": "label",
-        "text": "Freeze/thaw processes in complex permafrost landscapes of northern Siberia simulated using the TEM ecosystem model: impact of thermokarst ponds and lakes"
-      }
-    },
-    "Q38996676": {
-      "term": "Freeze/thaw stress in Ceanothus of southern California chaparral",
-      "definition": "scientific article published on May 10, 2003",
-      "match": {
-        "alias": "label",
-        "text": "Freeze/thaw stress in Ceanothus of southern California chaparral"
-      }
-    },
-    "Q90358067": {
-      "term": "Freeze/thaw of IGG solutions",
-      "definition": "scientific article published on 04 December 2018",
-      "match": { "alias": "label", "text": "Freeze/thaw of IGG solutions" }
-    },
-    "Q36623417": {
-      "term": "Freeze/thaw stability of transferrin, and reference values obtained with kinetic nephelometry.",
-      "definition": "scientific article published on January 1984",
-      "match": {
-        "alias": "label",
-        "text": "Freeze/thaw stability of transferrin, and reference values obtained with kinetic nephelometry."
+        "text": "Freeze-thaw-induced embolism in Pinus contorta: centrifuge experiments validate the 'thaw-expansion hypothesis' but conflict with ultrasonic emission data"
       }
     }
   },
@@ -91496,12 +91712,84 @@
   "e468e55a-5bee-413e-8cbd-c9706e28eb93": {},
   "6d75d735-7dac-42a2-8f87-2dfcbe3cf545": {},
   "94370298-393b-4faa-bbb1-f8b6a47b9d56": {
-    "Q60215436": {
-      "term": "Composition/Structure Relationships in Monolithic Borophosphosilicate Glasses Obtained by the Sol-Gel Route",
+    "Q36246874": {
+      "term": "Composition-structure relationships in the Li-ion battery electrode material LiNi(0.5)Mn(1.5)O(4).",
+      "definition": "scientific article",
+      "match": {
+        "alias": "label",
+        "text": "Composition-structure relationships in the Li-ion battery electrode material LiNi(0.5)Mn(1.5)O(4)."
+      }
+    },
+    "Q53398798": {
+      "term": "Composition-structure-properties relationship of strontium borate glasses for medical applications",
+      "definition": "scientific article published on 26 November 2014",
+      "match": {
+        "alias": "label",
+        "text": "Composition-structure-properties relationship of strontium borate glasses for medical applications"
+      }
+    },
+    "Q51013323": {
+      "term": "Composition-structure-property relationships for non-classical ionomer cements formulated with zinc-boron germanium-based glasses",
+      "definition": "scientific article published on November 12, 2014",
+      "match": {
+        "alias": "label",
+        "text": "Composition-structure-property relationships for non-classical ionomer cements formulated with zinc-boron germanium-based glasses"
+      }
+    },
+    "Q62517300": {
+      "term": "Composition-Structure Relationships in Simplified Nuclear Waste Glasses: 2. The Effect of ZrO2 Additions",
       "definition": "article",
       "match": {
         "alias": "label",
-        "text": "Composition/Structure Relationships in Monolithic Borophosphosilicate Glasses Obtained by the Sol-Gel Route"
+        "text": "Composition-Structure Relationships in Simplified Nuclear Waste Glasses: 2. The Effect of ZrO2 Additions"
+      }
+    },
+    "Q67542052": {
+      "term": "Composition-structure-function correlations in the binding of an apolipoprotein to phosphatidylcholine bilayer mixtures",
+      "definition": "scientific article published on 01 January 1977",
+      "match": {
+        "alias": "label",
+        "text": "Composition-structure-function correlations in the binding of an apolipoprotein to phosphatidylcholine bilayer mixtures"
+      }
+    },
+    "Q129158407": {
+      "term": "Composition-structure-property relationships in Li2O\u2013Al2O3\u2013B2O3 glasses",
+      "definition": "scholarly article",
+      "match": {
+        "alias": "label",
+        "text": "Composition-structure-property relationships in Li2O\u2013Al2O3\u2013B2O3 glasses"
+      }
+    },
+    "Q126226948": {
+      "term": "Composition structure of programmology",
+      "definition": "scholarly article",
+      "match": {
+        "alias": "label",
+        "text": "Composition structure of programmology"
+      }
+    },
+    "Q35392657": {
+      "term": "Composition-structure-function diagrams of Ti-Ni-Au thin film shape memory alloys",
+      "definition": "scientific article",
+      "match": {
+        "alias": "label",
+        "text": "Composition-structure-function diagrams of Ti-Ni-Au thin film shape memory alloys"
+      }
+    },
+    "Q69041468": {
+      "term": "Composition structure of interplanetary coronal mass ejections from multispacecraft observations, modeling, and comparison with numerical simulations",
+      "definition": "scientific article published in January 2012",
+      "match": {
+        "alias": "label",
+        "text": "Composition structure of interplanetary coronal mass ejections from multispacecraft observations, modeling, and comparison with numerical simulations"
+      }
+    },
+    "Q62517299": {
+      "term": "Composition-Structure Relationships in Simplified Nuclear Waste Glasses: 1. Mixed Alkali Borosilicate Glasses",
+      "definition": "article",
+      "match": {
+        "alias": "label",
+        "text": "Composition-Structure Relationships in Simplified Nuclear Waste Glasses: 1. Mixed Alkali Borosilicate Glasses"
       }
     }
   },
@@ -92066,12 +92354,84 @@
   },
   "85d46af8-f6ce-490d-a971-0f03b301c1e4": {},
   "1afa91ea-2b60-48d6-b065-093cd20408cd": {
-    "Q60215436": {
-      "term": "Composition/Structure Relationships in Monolithic Borophosphosilicate Glasses Obtained by the Sol-Gel Route",
+    "Q36246874": {
+      "term": "Composition-structure relationships in the Li-ion battery electrode material LiNi(0.5)Mn(1.5)O(4).",
+      "definition": "scientific article",
+      "match": {
+        "alias": "label",
+        "text": "Composition-structure relationships in the Li-ion battery electrode material LiNi(0.5)Mn(1.5)O(4)."
+      }
+    },
+    "Q53398798": {
+      "term": "Composition-structure-properties relationship of strontium borate glasses for medical applications",
+      "definition": "scientific article published on 26 November 2014",
+      "match": {
+        "alias": "label",
+        "text": "Composition-structure-properties relationship of strontium borate glasses for medical applications"
+      }
+    },
+    "Q51013323": {
+      "term": "Composition-structure-property relationships for non-classical ionomer cements formulated with zinc-boron germanium-based glasses",
+      "definition": "scientific article published on November 12, 2014",
+      "match": {
+        "alias": "label",
+        "text": "Composition-structure-property relationships for non-classical ionomer cements formulated with zinc-boron germanium-based glasses"
+      }
+    },
+    "Q62517300": {
+      "term": "Composition-Structure Relationships in Simplified Nuclear Waste Glasses: 2. The Effect of ZrO2 Additions",
       "definition": "article",
       "match": {
         "alias": "label",
-        "text": "Composition/Structure Relationships in Monolithic Borophosphosilicate Glasses Obtained by the Sol-Gel Route"
+        "text": "Composition-Structure Relationships in Simplified Nuclear Waste Glasses: 2. The Effect of ZrO2 Additions"
+      }
+    },
+    "Q67542052": {
+      "term": "Composition-structure-function correlations in the binding of an apolipoprotein to phosphatidylcholine bilayer mixtures",
+      "definition": "scientific article published on 01 January 1977",
+      "match": {
+        "alias": "label",
+        "text": "Composition-structure-function correlations in the binding of an apolipoprotein to phosphatidylcholine bilayer mixtures"
+      }
+    },
+    "Q129158407": {
+      "term": "Composition-structure-property relationships in Li2O\u2013Al2O3\u2013B2O3 glasses",
+      "definition": "scholarly article",
+      "match": {
+        "alias": "label",
+        "text": "Composition-structure-property relationships in Li2O\u2013Al2O3\u2013B2O3 glasses"
+      }
+    },
+    "Q126226948": {
+      "term": "Composition structure of programmology",
+      "definition": "scholarly article",
+      "match": {
+        "alias": "label",
+        "text": "Composition structure of programmology"
+      }
+    },
+    "Q35392657": {
+      "term": "Composition-structure-function diagrams of Ti-Ni-Au thin film shape memory alloys",
+      "definition": "scientific article",
+      "match": {
+        "alias": "label",
+        "text": "Composition-structure-function diagrams of Ti-Ni-Au thin film shape memory alloys"
+      }
+    },
+    "Q69041468": {
+      "term": "Composition structure of interplanetary coronal mass ejections from multispacecraft observations, modeling, and comparison with numerical simulations",
+      "definition": "scientific article published in January 2012",
+      "match": {
+        "alias": "label",
+        "text": "Composition structure of interplanetary coronal mass ejections from multispacecraft observations, modeling, and comparison with numerical simulations"
+      }
+    },
+    "Q62517299": {
+      "term": "Composition-Structure Relationships in Simplified Nuclear Waste Glasses: 1. Mixed Alkali Borosilicate Glasses",
+      "definition": "article",
+      "match": {
+        "alias": "label",
+        "text": "Composition-Structure Relationships in Simplified Nuclear Waste Glasses: 1. Mixed Alkali Borosilicate Glasses"
       }
     }
   },
@@ -97482,10 +97842,7 @@
     "Q2071308": {
       "term": "Northwest Sumatra-Barrier Islands",
       "definition": "subgroup of the Austronesian language family",
-      "match": {
-        "alias": "alias",
-        "text": "Barrier Islands-Batak languages"
-      }
+      "match": { "alias": "alias", "text": "Barrier Islands-Batak languages" }
     },
     "Q4078910": {
       "term": "Baryernye Islands",
@@ -100640,81 +100997,78 @@
     }
   },
   "24b052b6-5996-496d-9e91-1fdbda5897da": {
-    "Q38619463": {
-      "term": "Freeze/thaw-induced destabilization of the plasma membrane and the effects of cold acclimation",
+    "Q12130100": {
+      "term": "freeze thaw resistance",
+      "definition": "the property of solids to resist cyclic freezing and melting",
+      "match": { "alias": "label", "text": "freeze thaw resistance" }
+    },
+    "Q123492608": {
+      "term": "freeze-thaw cycle",
+      "definition": "series of freezing and thawing periods",
+      "match": { "alias": "label", "text": "freeze-thaw cycle" }
+    },
+    "Q118872889": {
+      "term": "Freeze-Thaw Durability Specification for Highway Concrete",
+      "definition": "2022 master's thesis submitted to the University of North Carolina at Charlotte by Joseph Dylan O'campo",
+      "match": {
+        "alias": "label",
+        "text": "Freeze-Thaw Durability Specification for Highway Concrete"
+      }
+    },
+    "Q50803671": {
+      "term": "Freeze-thaw-induced changes of the zona pellucida explains decreased rates of fertilization in frozen-thawed mouse oocytes.",
+      "definition": "scientific article published in November 1990",
+      "match": {
+        "alias": "label",
+        "text": "Freeze-thaw-induced changes of the zona pellucida explains decreased rates of fertilization in frozen-thawed mouse oocytes."
+      }
+    },
+    "Q45143976": {
+      "term": "Freeze-thawing intact human ovary with its vascular pedicle with a passive cooling device",
+      "definition": "scientific article published in November 2004",
+      "match": {
+        "alias": "label",
+        "text": "Freeze-thawing intact human ovary with its vascular pedicle with a passive cooling device"
+      }
+    },
+    "Q33713281": {
+      "term": "Freeze-thaw treatment effects on the dynamic mechanical properties of articular cartilage",
+      "definition": "scientific article published on October 8, 2010",
+      "match": {
+        "alias": "label",
+        "text": "Freeze-thaw treatment effects on the dynamic mechanical properties of articular cartilage"
+      }
+    },
+    "Q50772184": {
+      "term": "Freeze-thaw effects on phosphorus loss in runoff from manured and catch-cropped soils",
+      "definition": "scientific article published on 7 November 2005",
+      "match": {
+        "alias": "label",
+        "text": "Freeze-thaw effects on phosphorus loss in runoff from manured and catch-cropped soils"
+      }
+    },
+    "Q43234785": {
+      "term": "Freeze-thaw tolerance and clues to the winter survival of a soil community",
+      "definition": "scientific article published in March 2006",
+      "match": {
+        "alias": "label",
+        "text": "Freeze-thaw tolerance and clues to the winter survival of a soil community"
+      }
+    },
+    "Q41235050": {
+      "term": "Freeze-thaw cycles as drivers of complex ribozyme assembly",
+      "definition": "scientific article published on 4 May 2015",
+      "match": {
+        "alias": "label",
+        "text": "Freeze-thaw cycles as drivers of complex ribozyme assembly"
+      }
+    },
+    "Q33520334": {
+      "term": "Freeze-thaw-induced embolism in Pinus contorta: centrifuge experiments validate the 'thaw-expansion hypothesis' but conflict with ultrasonic emission data",
       "definition": "scientific article",
       "match": {
         "alias": "label",
-        "text": "Freeze/thaw-induced destabilization of the plasma membrane and the effects of cold acclimation"
-      }
-    },
-    "Q40207782": {
-      "term": "Freeze/thaw and pH effects on freshwater dissolved organic matter fluorescence and absorbance properties from a number of UK locations",
-      "definition": "scientific article published on 30 May 2007",
-      "match": {
-        "alias": "label",
-        "text": "Freeze/thaw and pH effects on freshwater dissolved organic matter fluorescence and absorbance properties from a number of UK locations"
-      }
-    },
-    "Q36010984": {
-      "term": "Freeze/Thaw-Induced Embolism: Probability of Critical Bubble Formation Depends on Speed of Ice Formation",
-      "definition": "scientific article published on June 6, 2012",
-      "match": {
-        "alias": "label",
-        "text": "Freeze/Thaw-Induced Embolism: Probability of Critical Bubble Formation Depends on Speed of Ice Formation"
-      }
-    },
-    "Q39135141": {
-      "term": "Freeze/thaw-induced embolism depends on nadir temperature: the heterogeneous hydration hypothesis",
-      "definition": "scientific article published on May 2006",
-      "match": {
-        "alias": "label",
-        "text": "Freeze/thaw-induced embolism depends on nadir temperature: the heterogeneous hydration hypothesis"
-      }
-    },
-    "Q46922096": {
-      "term": "Freeze/thaw stress induces organelle remodeling and membrane recycling in cryopreserved human mature oocytes",
-      "definition": "scientific article published in September 2016",
-      "match": {
-        "alias": "label",
-        "text": "Freeze/thaw stress induces organelle remodeling and membrane recycling in cryopreserved human mature oocytes"
-      }
-    },
-    "Q73884544": {
-      "term": "Freeze/thaw effects on lipid-bilayer vesicles investigated by differential scanning calorimetry",
-      "definition": "scientific article published on 01 September 2003",
-      "match": {
-        "alias": "label",
-        "text": "Freeze/thaw effects on lipid-bilayer vesicles investigated by differential scanning calorimetry"
-      }
-    },
-    "Q58052130": {
-      "term": "Freeze/thaw processes in complex permafrost landscapes of northern Siberia simulated using the TEM ecosystem model: impact of thermokarst ponds and lakes",
-      "definition": "article",
-      "match": {
-        "alias": "label",
-        "text": "Freeze/thaw processes in complex permafrost landscapes of northern Siberia simulated using the TEM ecosystem model: impact of thermokarst ponds and lakes"
-      }
-    },
-    "Q38996676": {
-      "term": "Freeze/thaw stress in Ceanothus of southern California chaparral",
-      "definition": "scientific article published on May 10, 2003",
-      "match": {
-        "alias": "label",
-        "text": "Freeze/thaw stress in Ceanothus of southern California chaparral"
-      }
-    },
-    "Q90358067": {
-      "term": "Freeze/thaw of IGG solutions",
-      "definition": "scientific article published on 04 December 2018",
-      "match": { "alias": "label", "text": "Freeze/thaw of IGG solutions" }
-    },
-    "Q36623417": {
-      "term": "Freeze/thaw stability of transferrin, and reference values obtained with kinetic nephelometry.",
-      "definition": "scientific article published on January 1984",
-      "match": {
-        "alias": "label",
-        "text": "Freeze/thaw stability of transferrin, and reference values obtained with kinetic nephelometry."
+        "text": "Freeze-thaw-induced embolism in Pinus contorta: centrifuge experiments validate the 'thaw-expansion hypothesis' but conflict with ultrasonic emission data"
       }
     }
   },
@@ -102884,10 +103238,7 @@
     "Q35111323": {
       "term": "Coral bleaching--how and why?",
       "definition": "scientific article published on April 1, 2003",
-      "match": {
-        "alias": "label",
-        "text": "Coral bleaching--how and why?"
-      }
+      "match": { "alias": "label", "text": "Coral bleaching--how and why?" }
     },
     "Q33194597": {
       "term": "Coral bleaching  -  capacity for acclimatization and adaptation",
@@ -102941,7 +103292,64 @@
       }
     }
   },
-  "36a2999b-2255-4d4e-a249-40df3b7b3aaf": {},
+  "36a2999b-2255-4d4e-a249-40df3b7b3aaf": {
+    "Q59578284": {
+      "term": "Discharge-flow studies of reactions of halogen containing species of relevance to the atmosphere",
+      "definition": "doctoral thesis by Dina Shah",
+      "match": {
+        "alias": "label",
+        "text": "Discharge-flow studies of reactions of halogen containing species of relevance to the atmosphere"
+      }
+    },
+    "Q33250794": {
+      "term": "Discharge-flow kinetics measurements using intracavity laser absorption spectroscopy",
+      "definition": "scientific article",
+      "match": {
+        "alias": "label",
+        "text": "Discharge-flow kinetics measurements using intracavity laser absorption spectroscopy"
+      }
+    },
+    "Q87074739": {
+      "term": "Discharge flow of a bidisperse granular media from a silo: Discrete particle simulations",
+      "definition": "scientific article published on 10 December 2015",
+      "match": {
+        "alias": "label",
+        "text": "Discharge flow of a bidisperse granular media from a silo: Discrete particle simulations"
+      }
+    },
+    "Q126322804": {
+      "term": "Discharge flow study of the CH3S + NO2 reaction mechanism using Cl + CH3SH as the CH3S source",
+      "definition": "scholarly article",
+      "match": {
+        "alias": "label",
+        "text": "Discharge flow study of the CH3S + NO2 reaction mechanism using Cl + CH3SH as the CH3S source"
+      }
+    },
+    "Q85784059": {
+      "term": "Discharge flow of a bidisperse granular media from a silo",
+      "definition": "scientific article published on 02 September 2014",
+      "match": {
+        "alias": "label",
+        "text": "Discharge flow of a bidisperse granular media from a silo"
+      }
+    },
+    "Q128691030": {
+      "term": "Discharge Flow Rate Change Under Rainy Conditions on Urban Motorways",
+      "definition": "scholarly article",
+      "match": {
+        "alias": "label",
+        "text": "Discharge Flow Rate Change Under Rainy Conditions on Urban Motorways"
+      }
+    },
+    "Q127934163": {
+      "term": "Discharge flow reaction kinetic studies of O(3P) with chloroethylenes CH2CCl2, CHClCCl2, CCl2CCl2",
+      "definition": "scholarly article",
+      "match": {
+        "alias": "label",
+        "text": "Discharge flow reaction kinetic studies of O(3P) with chloroethylenes CH2CCl2, CHClCCl2, CCl2CCl2"
+      }
+    }
+  },
   "609f7831-5145-4a5c-bd58-d0b426058740": {
     "Q4866395": {
       "term": "Base flow",
@@ -106948,10 +107356,7 @@
     "Q64011125": {
       "term": "Subtropical depression Twenty-two",
       "definition": "Subtropical depression",
-      "match": {
-        "alias": "label",
-        "text": "Subtropical depression Twenty-two"
-      }
+      "match": { "alias": "label", "text": "Subtropical depression Twenty-two" }
     },
     "Q106543732": {
       "term": "Subtropical Depression 02Q (2021)",
