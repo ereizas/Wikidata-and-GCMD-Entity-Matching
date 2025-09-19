@@ -13,14 +13,14 @@ def format_entity(entity):
     """
     return f"{entity["term"]} - {entity["definition"]}".lower()
 
-def rank_by_n_gram(target:dict,candidates:dict):
+def rank_by_n_gram(target:dict, candidates:dict):
     """
     Gets the ranking for each candidate based on cosine simalarity with the target
     @param target : GCMD entity to match in the format
     @param candidates : potential matches to target from Wikidata
     @return : vector for the target, vectors for the candidates
     """
-    THRESHOLD = 0.05
+    THRESHOLD = 0.044
     target = format_entity(target)
     ids = candidates.keys()
     candidate_texts = [format_entity(candidates[uuid]) for uuid in candidates]
@@ -51,6 +51,36 @@ def rank_by_edit_dist(target:str, wikidata_search_res:dict, inverse:bool=False):
             ranking.append((res,score))
     return sorted(ranking, key=lambda x: x[1], reverse=inverse)
 
+
+def update_stats(rank:list, ground_truth:list, stats:dict):
+    """
+    Update the statistics needed to calculate accuracy, recall, and precision
+    :param rank: list of ids ranked by how well they match the target
+    :param ground_truth: list of valid matches
+    :param stats: dictionary of statistics (e.g. true positive, false negative)
+    """
+    if rank and rank[0][0] in ground_truth:
+            stats["tp"]+=1
+    elif rank and rank[0][0]!=ground_truth:
+        stats["fp"]+=1
+    elif not rank and ground_truth==[""]:
+        stats["tn"]+=1
+    elif not rank and ground_truth!=[""]:
+        stats["fn"]+=1
+
+def print_performance(method_name:str, stats:dict):
+    """
+    Prints the performance metrics for a method
+    :param method_name: string name of the method
+    :param stats: dictionary of statistics (e.g. true positive, false negative)
+    """
+    print(f"Accuracy of {method_name}: {(stats["tp"]+stats["tn"])/float(stats["tp"]+stats["fp"]+stats["tn"]+stats["fn"])}")
+    prec = stats["tp"]/float(stats["tp"]+stats["fp"])
+    print(f"Precision of {method_name}: {prec}")
+    recall = stats["tp"]/float(stats["tp"]+stats["fn"])
+    print(f"Recall of {method_name}: {recall}")
+    print(f"F1 score of {method_name}: {prec*recall/(prec+recall)}")
+
 if __name__=="__main__":
     file = open("gcmd_ents.json","r")
     gcmd_ents = load(file)
@@ -67,27 +97,11 @@ if __name__=="__main__":
     num_samples = 0
     for uuid in gcmd_ents:
         if wikidata_search_res[uuid]:
-            print(f"Term: {gcmd_ents[uuid]["term"]}")
+            ground_truth_matches = ground_truth[uuid].split(",")
             edit_dist_rank = rank_by_edit_dist(gcmd_ents[uuid]["term"], wikidata_search_res[uuid])
-            print(f"Edit dist ranking: {edit_dist_rank}\n")
+            update_stats(edit_dist_rank, ground_truth_matches, edit_dist_stats)
             n_gram_rank = rank_by_n_gram(gcmd_ents[uuid],wikidata_search_res[uuid])
-            #TODO: parse multiple match entities (in ground_truth[uuid].split(","))
-            if edit_dist_rank and edit_dist_rank[0][0]==ground_truth[uuid]:
-                edit_dist_stats["tp"]+=1
-            elif edit_dist_rank and edit_dist_rank[0][0]!=ground_truth[uuid]:
-                edit_dist_stats["fp"]+=1
-            elif not edit_dist_rank and ground_truth[uuid]=="":
-                edit_dist_stats["tn"]+=1
-            elif not edit_dist_rank and ground_truth[uuid]!="":
-                edit_dist_stats["fn"]+=1
-            if n_gram_rank and n_gram_rank[0][0]==ground_truth[uuid]:
-                n_gram_stats["tp"]+=1
-            elif n_gram_rank and n_gram_rank[0][0]!=ground_truth[uuid]:
-                n_gram_stats["fp"]+=1
-            if not n_gram_rank and ground_truth[uuid]=="":
-                n_gram_stats["tn"]+=1
-            elif not n_gram_rank and ground_truth[uuid]!="":
-                n_gram_stats["fn"]+=1  
+            update_stats(n_gram_rank, ground_truth_matches, n_gram_stats)
         num_samples+=1
         if num_samples==LABELED_SAMPLES:
             break
@@ -97,16 +111,6 @@ if __name__=="__main__":
     for ind in n_gram_stats:
         print(f"N gram {ind}: {n_gram_stats[ind]}")
     print("")
-    print(f"Accuracy of edit distance: {(edit_dist_stats["tp"]+edit_dist_stats["tn"])/float(edit_dist_stats["tp"]+edit_dist_stats["fp"]+edit_dist_stats["tn"]+edit_dist_stats["fn"])}")
-    prec = edit_dist_stats["tp"]/float(edit_dist_stats["tp"]+edit_dist_stats["fp"])
-    print(f"Precision of edit distance: {prec}")
-    recall = edit_dist_stats["tp"]/float(edit_dist_stats["tp"]+edit_dist_stats["fn"])
-    print(f"Recall of edit distance: {recall}")
-    print(f"F1 score of edit distance: {prec*recall/(prec+recall)}")
+    print_performance("edit distance", edit_dist_stats)
     print("")
-    print(f"Accuracy of n gram: {(n_gram_stats["tp"]+n_gram_stats["tn"])/float(n_gram_stats["tp"]+n_gram_stats["fp"]+n_gram_stats["tn"]+n_gram_stats["fn"])}")
-    prec = n_gram_stats["tp"]/float(n_gram_stats["tp"]+n_gram_stats["fp"])
-    print(f"Precision of n gram: {prec}")
-    recall = n_gram_stats["tp"]/float(n_gram_stats["tp"]+n_gram_stats["fn"])
-    print(f"Recall of n gram: {recall}")
-    print(f"F1 score of n gram: {prec*recall/(prec+recall)}")
+    print_performance("n gram", n_gram_stats)
