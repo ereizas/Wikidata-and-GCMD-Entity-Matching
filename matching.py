@@ -4,9 +4,11 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
 import requests
-from config import google_cloud_api_key
+from config import gemini_api_key, google_cloud_api_key
 import time
 import itertools
+from collections import defaultdict
+from embeddings_caching import *
 
 def format_entity(entity):
     """
@@ -121,7 +123,7 @@ def rate_limited_post(url, payload, last_call_time, min_interval=5.0):
     resp = requests.post(url, json=payload)
     return resp, time.time()
 
-API_URL = f"https://aiplatform.googleapis.com/v1/publishers/google/models/gemini-2.5-flash-lite:generateContent?key={google_cloud_api_key}"
+API_URL = f"https://aiplatform.googleapis.com/v1/publishers/google/models/gemini-2.5-flash-lite:generateContent?key={gemini_api_key}"
 
 def process_batches(gcmd_ents, wikidata_search_res, num_samples, batch_size=10):
     """
@@ -146,6 +148,47 @@ def process_batches(gcmd_ents, wikidata_search_res, num_samples, batch_size=10):
         except Exception as e:
             print("Error parsing response:", e, resp.text)
     return results
+
+def build_unique_text_reprs(gcmd_ents:dict, wikidata_search_res:dict, limit):
+    """
+    Build unique text representations and map back to sources
+
+    :param gcmd_ents: entities from GCMD
+    :param wikidata_search_res: GCMD uuid mapped to at most 10 top search results in WikiData
+    :return: mapping of text to sources, set of all unique texts
+    """
+    text_sources = defaultdict(list)  # maps text -> list of ("gcmd"|"candidate", uuid, candidate_id)
+    all_texts = set()
+    items = gcmd_ents.items() if limit is None else list(gcmd_ents.items())[:limit]
+    for uuid, gcmd_entity in items:
+        # GCMD entity text
+        gcmd_text = format_entity(gcmd_entity)
+        all_texts.add(gcmd_text)
+        text_sources[gcmd_text].append(("gcmd", uuid))
+
+        # Candidates
+        for cand_uuid, canditate_entity in wikidata_search_res[uuid].items():
+            c_text = format_entity(canditate_entity)
+            all_texts.add(c_text)
+            text_sources[c_text].append(("candidate", uuid, cand_uuid))
+    return text_sources, all_texts
+
+def rank_by_embedding(target_embedding, candidate_embeddings, candidate_ids):
+    """
+    Rank candidates based on cosine similarity with the target embedding
+
+    :param target_embedding: embedding vector for the target
+    :param candidate_embeddings: list of embedding vectors for candidates
+    :param candidate_ids: list of candidate ids corresponding to embeddings
+    :return: sorted list of (candidate_id, similarity_score) tuples
+    """
+    THRESHOLD = 0.742
+    if not candidate_embeddings:
+        return []
+    similarities = cosine_similarity([target_embedding], candidate_embeddings).flatten()
+    similarities = zip(candidate_ids, similarities)
+    similarities = [(ent, score) for ent,score in similarities if score>=THRESHOLD]
+    return sorted(similarities, key=lambda x: x[1], reverse=True)
 
 # TODO: try Mistral with the update of checking
 def update_stats(rank:list, ground_truth:list, stats:dict):
@@ -198,21 +241,42 @@ if __name__=="__main__":
         print(f"LLM {ind}: {llm_stats[ind]}")
     print("")
     print_performance("LLM", llm_stats)"""
+    # embedding
+    # init_db()
+    text_sources, all_texts = build_unique_text_reprs(gcmd_ents, wikidata_search_res, LABELED_SAMPLES)
+    all_texts = list(all_texts)
+    embeddings = batch_embeddings_with_cache(all_texts, api_key=google_cloud_api_key)
+    text_to_emb = dict(zip(list(all_texts), embeddings))
+    gcmd_embeddings = {}
+    candidate_embeddings = defaultdict(dict)
+    for text, usages in text_sources.items():
+        for info in usages:
+            if info[0] == "gcmd":
+                gcmd_embeddings[info[1]] = text_to_emb[text]
+            elif info[0] == "candidate":
+                candidate_embeddings[info[1]][info[2]] = text_to_emb[text]
 
     """edit_dist_stats = {"tp":0, "fp":0, "tn":0, "fn":0}
     n_gram_stats = {"tp":0, "fp":0, "tn":0, "fn":0}
+    """
+    embedding_stats = {"tp":0, "fp":0, "tn":0, "fn":0}
     num_samples = 0
+    total_cos_sim = 0
     for uuid in gcmd_ents:
         if wikidata_search_res[uuid]:
             ground_truth_matches = ground_truth[uuid].split(",")
-            edit_dist_rank = [item[0] for item in rank_by_edit_dist(gcmd_ents[uuid]["term"], wikidata_search_res[uuid])]
+            """edit_dist_rank = [item[0] for item in rank_by_edit_dist(gcmd_ents[uuid]["term"], wikidata_search_res[uuid])]
             update_stats(edit_dist_rank, ground_truth_matches, edit_dist_stats)
             n_gram_rank = [item[0] for item in rank_by_n_gram(gcmd_ents[uuid],wikidata_search_res[uuid])]
-            update_stats(n_gram_rank, ground_truth_matches, n_gram_stats)
+            update_stats(n_gram_rank, ground_truth_matches, n_gram_stats)"""
+            embedding_rank = [item[0] for item in rank_by_embedding(gcmd_embeddings[uuid],
+                                               list(candidate_embeddings[uuid].values()),
+                                               list(candidate_embeddings[uuid].keys()))]
+            update_stats(embedding_rank, ground_truth_matches, embedding_stats)
         num_samples+=1
         if num_samples==LABELED_SAMPLES:
             break
-    for ind in edit_dist_stats:
+    """for ind in edit_dist_stats:
         print(f"Edit dist {ind}: {edit_dist_stats[ind]}")
     print("")
     print_performance("edit distance", edit_dist_stats)
@@ -221,3 +285,8 @@ if __name__=="__main__":
         print(f"N gram {ind}: {n_gram_stats[ind]}")
     print("")
     print_performance("n gram", n_gram_stats)"""
+    for ind in embedding_stats:
+        print(f"Embedding {ind}: {embedding_stats[ind]}")
+    print("")
+    print_performance("embedding", embedding_stats)
+    print("")

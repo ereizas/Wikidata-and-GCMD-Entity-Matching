@@ -2,3 +2,4 @@ requests
 beautifulsoup4
 nltk
 scikit-learn
+google-genai
