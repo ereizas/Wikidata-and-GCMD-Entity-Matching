@@ -4,6 +4,8 @@ from json import dump, load
 from config import earth_data_user_token, wikidata_access_token
 from time import time, sleep
 
+# TODO: try removing characters after first slash or paren for search
+
 USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
 
 def build_path(uuid, data, uuid_to_parent):
@@ -84,7 +86,13 @@ def get_wikidata_search_results(term:str):
         "Authorization": f"Bearer {wikidata_access_token}"
     }
     filtered_data = dict()
-    response = requests.get(f"https://www.wikidata.org/w/api.php?action=wbsearchentities&search={term}&language=en&format=json&limit=10",
+    slash_ind = term.find("/")
+    if slash_ind==-1:
+        slash_ind=len(term)
+    paren_ind = term.find("(")
+    if paren_ind==-1:
+        paren_ind=len(term)
+    response = requests.get(f"https://www.wikidata.org/w/api.php?action=wbsearchentities&search={term[:slash_ind] if slash_ind<paren_ind else term[:paren_ind]}&language=en&uselang=en&format=json&type=item&limit=10",
         headers=HEADERS
     )
     data = None
@@ -93,7 +101,19 @@ def get_wikidata_search_results(term:str):
     else:
         return {"Error occurred":f"{response.status_code}"}
     for res in data["search"]:
-        filtered_data[res["id"]] = {"term":res["display"]["label"]["value"],"definition":res["description"] if res.get("description") else None,"match":{"alias":res["match"]["type"],"text":res["match"]["text"]}}
+        definition = res.get("description")
+        if (
+            definition and not definition.lower().startswith("article") and
+            "scholarly article" not in definition and "scientific article" not in definition.lower()
+            and "journal article" not in definition and "encyclopedia article" not in definition
+            and "list article" not in definition and "encyclopedic article" not in definition
+            and "Wikinews article" in definition
+        ):
+            filtered_data[res["id"]] = {
+                "term":res["display"]["label"]["value"],
+                "definition": definition,
+                "match":{"alias":res["match"]["type"],"text":res["match"]["text"]}
+            }
     return filtered_data
 
 def sleep_if_needed(start_time, num_reqs, reqs_per_minute_allowed):
@@ -121,13 +141,15 @@ def write_search_results_to_json(gcmd_ents_filename):
     num_reqs = 0
     start_time = None
     for uuid in gcmd_ents:
-        if not wiki_data_search_res.get(uuid):
+        if not wiki_data_search_res.get(uuid) and gcmd_ents[uuid]["term"].endswith("s"):
             if start_time is None:
                 start_time = time()
             num_reqs, start_time = sleep_if_needed(start_time, num_reqs, REQS_PER_MINUTE_ALLOWED)
-            wiki_data_search_res[uuid] = get_wikidata_search_results(gcmd_ents[uuid]["term"])
+            wiki_data_search_res[uuid] = get_wikidata_search_results(gcmd_ents[uuid]["term"][:-1])
+            if wiki_data_search_res[uuid]:
+                print(gcmd_ents[uuid])
             num_reqs+=1
-        # try with path
+        """# try with path
         if not wiki_data_search_res.get(uuid) and gcmd_ents[uuid]["path"]:
             path = gcmd_ents[uuid]["path"].split('/')
             if len(path)>=2:
@@ -136,11 +158,37 @@ def write_search_results_to_json(gcmd_ents_filename):
                 path = path[0]
             num_reqs, start_time = sleep_if_needed(start_time, num_reqs, REQS_PER_MINUTE_ALLOWED)
             wiki_data_search_res[uuid] = get_wikidata_search_results(f"{gcmd_ents[uuid]["term"]} {path}")
-            num_reqs+=1
+            num_reqs+=1"""
     with open("gcmd_ents_wikidata_search_res.json","w") as file:
         dump(wiki_data_search_res,file)
 
 #write_all_gcmd_ents_to_json()
-#print(get_wikidata_search_results("carbon"))
+#print(get_wikidata_search_results("Current Meter"))
 #write_search_results_to_json("gcmd_ents.json")
 
+"""#remove article objects
+search_res = None
+to_delete = []
+with open("gcmd_ents_wikidata_search_res.json") as file:
+    search_res = load(file)
+num_res = 0
+for uuid in search_res:
+    for wiki_id in search_res[uuid]:
+        num_res+=1
+        definition = search_res[uuid][wiki_id]["definition"]
+        if definition and (definition.lower().startswith("article") or "scholarly article" in definition or
+            "scientific article" in definition.lower() or "journal article" in definition or
+            "encyclopedia article" in definition or "list article" in definition or
+            "encyclopedic article" in definition or "Wikinews article" in definition):
+            to_delete.append((uuid,wiki_id))
+print(num_res)
+print(len(to_delete))
+for uuid, wiki_id in to_delete:
+    del search_res[uuid][wiki_id]
+num_res = 0
+for uuid in search_res:
+    for wiki_id in search_res[uuid]:
+        num_res+=1
+print(num_res)
+with open("gcmd_ents_wikidata_search_res.json", "w") as file:
+    dump(search_res, file)"""
