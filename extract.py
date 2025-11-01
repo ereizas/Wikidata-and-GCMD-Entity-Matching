@@ -1,8 +1,11 @@
 import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 import xml.etree.ElementTree as ET
 from json import dump, load
 from config import earth_data_user_token, wikidata_access_token
 from time import time, sleep
+from random import uniform
 
 # TODO: try removing characters after first slash or paren for search
 
@@ -18,6 +21,16 @@ def build_path(uuid, data, uuid_to_parent):
             break
         current = uuid_to_parent[current]
     return "/".join(path)
+
+session = requests.Session()
+retries = Retry(
+    total=5, 
+    backoff_factor=1,  # exponential backoff (1s, 2s, 4s…)
+    status_forcelist=[429, 500, 502, 503, 504],
+)
+adapter = HTTPAdapter(max_retries=retries)
+session.mount("https://", adapter)
+session.headers.update({"User-Agent": USER_AGENT})
 
 def write_all_gcmd_ents_to_json():
     """
@@ -83,7 +96,6 @@ def get_wikidata_search_results(term:str):
     """
     HEADERS = {
         "User-Agent": USER_AGENT,
-        "Authorization": f"Bearer {wikidata_access_token}"
     }
     filtered_data = dict()
     slash_ind = term.find("/")
@@ -92,28 +104,41 @@ def get_wikidata_search_results(term:str):
     paren_ind = term.find("(")
     if paren_ind==-1:
         paren_ind=len(term)
-    response = requests.get(f"https://www.wikidata.org/w/api.php?action=wbsearchentities&search={term[:slash_ind] if slash_ind<paren_ind else term[:paren_ind]}&language=en&uselang=en&format=json&type=item&limit=10",
-        headers=HEADERS
-    )
-    data = None
-    if response.status_code==200:
+    query = term[:slash_ind] if slash_ind < paren_ind else term[:paren_ind]
+    try:
+        response = session.get(
+            "https://www.wikidata.org/w/api.php",
+            params={
+                "action": "wbsearchentities",
+                "search": query,
+                "language": "en",
+                "uselang": "en",
+                "format": "json",
+                "type": "item",
+                "limit": 10,
+            },
+            timeout=10
+        )
+        response.raise_for_status()
         data = response.json()
-    else:
-        return {"Error occurred":f"{response.status_code}"}
-    for res in data["search"]:
-        definition = res.get("description")
-        if (
-            definition and not definition.lower().startswith("article") and
-            "scholarly article" not in definition and "scientific article" not in definition.lower()
-            and "journal article" not in definition and "encyclopedia article" not in definition
-            and "list article" not in definition and "encyclopedic article" not in definition
-            and "Wikinews article" in definition
-        ):
-            filtered_data[res["id"]] = {
-                "term":res["display"]["label"]["value"],
-                "definition": definition,
-                "match":{"alias":res["match"]["type"],"text":res["match"]["text"]}
-            }
+    except requests.exceptions.RequestException as e:
+        print(f"Error querying '{term}': {e}")
+        return {}
+    if data.get("search"):
+        for res in data["search"]:
+            definition = res.get("description")
+            if (
+                definition and not definition.lower().startswith("article") and
+                "scholarly article" not in definition and "scientific article" not in definition.lower()
+                and "journal article" not in definition and "encyclopedia article" not in definition
+                and "list article" not in definition and "encyclopedic article" not in definition
+                and "Wikinews article" not in definition
+            ):
+                filtered_data[res["id"]] = {
+                    "term":res["display"]["label"]["value"],
+                    "definition": definition,
+                    "match":{"alias":res["match"]["type"],"text":res["match"]["text"]}
+                }
     return filtered_data
 
 def sleep_if_needed(start_time, num_reqs, reqs_per_minute_allowed):
@@ -124,6 +149,8 @@ def sleep_if_needed(start_time, num_reqs, reqs_per_minute_allowed):
         num_reqs = 0
         start_time = time()
     return num_reqs, start_time
+
+REQS_PER_MINUTE_ALLOWED = 60
 
 def write_search_results_to_json(gcmd_ents_filename):
     """
@@ -137,7 +164,6 @@ def write_search_results_to_json(gcmd_ents_filename):
     wiki_data_search_res = None
     with open("gcmd_ents_wikidata_search_res.json",'r') as wiki_data_search_res_file:
         wiki_data_search_res = load(wiki_data_search_res_file)
-    REQS_PER_MINUTE_ALLOWED = 5000
     num_reqs = 0
     start_time = None
     for uuid in gcmd_ents:
@@ -165,6 +191,54 @@ def write_search_results_to_json(gcmd_ents_filename):
 #write_all_gcmd_ents_to_json()
 #print(get_wikidata_search_results("Current Meter"))
 #write_search_results_to_json("gcmd_ents.json")
+
+def generate_search_variants(term: str):
+    parts = term.split('/')
+    variants = set()
+    variants.add(term.replace('/', ' '))
+    variants.update(parts)
+    for i in range(len(parts)):
+        for j in range(i+1, len(parts)):
+            variants.add(' '.join(parts[i:j+1]))
+    return variants
+
+"""search_res = None
+with open("gcmd_ents_wikidata_search_res.json") as file:
+    search_res = load(file)
+gcmd_ents = None
+with open("gcmd_ents.json") as file:
+    gcmd_ents = load(file)
+no_search_res_ents = []
+num_reqs = 0
+start_time = None
+for uuid in search_res:
+    if not search_res[uuid]:
+        term = gcmd_ents[uuid]["term"]
+        if "/" not in term and term.endswith("s"):
+            if start_time is None:
+                start_time = time()
+            num_reqs, start_time = sleep_if_needed(start_time, num_reqs, REQS_PER_MINUTE_ALLOWED)
+            search_res[uuid]|=get_wikidata_search_results(term[:-1])
+            num_reqs+=1
+        elif "/" in term:
+            variants = generate_search_variants(term)
+            if "s/" in term:
+                singular_term = term
+                if term.endswith("s"):
+                    singular_term = singular_term[:-1]
+                variants = variants.union(generate_search_variants(singular_term.replace("s/","/")))
+            for variant in variants:
+                if start_time is None:
+                    start_time = time()
+                num_reqs, start_time = sleep_if_needed(start_time, num_reqs, REQS_PER_MINUTE_ALLOWED)
+                search_res[uuid]|=get_wikidata_search_results(variant)
+                num_reqs+=1
+    if not search_res[uuid]:
+        no_search_res_ents.append([uuid,term])
+with open("no_search_res.json","w") as file:
+    dump(no_search_res_ents, file)
+with open("gcmd_ents_wikidata_search_res.json","w") as file:
+    dump(search_res,file)"""
 
 """#remove article objects
 search_res = None
