@@ -240,7 +240,7 @@ with open("no_search_res.json","w") as file:
 with open("gcmd_ents_wikidata_search_res.json","w") as file:
     dump(search_res,file)"""
 
-"""#remove article objects
+"""#remove article objects or entities with null definition
 search_res = None
 to_delete = []
 with open("gcmd_ents_wikidata_search_res.json") as file:
@@ -250,10 +250,11 @@ for uuid in search_res:
     for wiki_id in search_res[uuid]:
         num_res+=1
         definition = search_res[uuid][wiki_id]["definition"]
-        if definition and (definition.lower().startswith("article") or "scholarly article" in definition or
+        if not definition:
+            """if definition and (definition.lower().startswith("article") or "scholarly article" in definition or
             "scientific article" in definition.lower() or "journal article" in definition or
             "encyclopedia article" in definition or "list article" in definition or
-            "encyclopedic article" in definition or "Wikinews article" in definition):
+            "encyclopedic article" in definition or "Wikinews article" in definition)"""
             to_delete.append((uuid,wiki_id))
 print(num_res)
 print(len(to_delete))
