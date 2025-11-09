@@ -30,7 +30,7 @@ def format_entity(entity):
     """
     return f"{f"{entity["path"]} | " if "path" in entity else ""}{entity["term"]} - {entity["definition"]}".lower()
 
-def rank_by_n_gram(target:dict, candidates:dict, threshold=0.044):
+def rank_by_n_gram(target:dict, candidates:dict, threshold=0.044, use_path=False):
     """
     Gets the ranking for each candidate based on cosine simalarity with the target
     :param target: GCMD entity to match in the format
@@ -38,10 +38,8 @@ def rank_by_n_gram(target:dict, candidates:dict, threshold=0.044):
     :param threshold: threshold for cosine similarity
     :return: vector for the target, vectors for the candidates
     """
-    #target = format_entity(target)
-    target = format_entity_no_path(target)
+    target = format_entity_no_path(target) if not use_path else format_entity(target)
     ids = candidates.keys()
-    #candidate_texts = [format_entity(candidates[uuid]) for uuid in candidates]
     candidate_texts = [format_entity_no_path(candidates[uuid]) for uuid in candidates]
     texts = [target] + candidate_texts
     vectorizer = TfidfVectorizer(analyzer='word', ngram_range=(2, 3))
@@ -174,7 +172,7 @@ def process_batches(gcmd_ents, wikidata_search_res, num_samples, batch_size=10):
             print("Error parsing response:", e, resp.text)
     return results
 
-def build_unique_text_reprs(gcmd_ents:dict, wikidata_search_res:dict, limit):
+def build_unique_text_reprs(gcmd_ents:dict, wikidata_search_res:dict, limit, use_path=False):
     """
     Build unique text representations and map back to sources
 
@@ -187,14 +185,12 @@ def build_unique_text_reprs(gcmd_ents:dict, wikidata_search_res:dict, limit):
     items = gcmd_ents.items() if limit is None else list(gcmd_ents.items())[:limit]
     for uuid, gcmd_entity in items:
         # GCMD entity text
-        #gcmd_text = format_entity(gcmd_entity)
-        gcmd_text = format_entity_no_path(gcmd_entity)
+        gcmd_text = format_entity_no_path(gcmd_entity) if not use_path else format_entity(gcmd_entity)
         all_texts.add(gcmd_text)
         text_sources[gcmd_text].append(("gcmd", uuid))
 
         # Candidates
         for cand_uuid, canditate_entity in wikidata_search_res[uuid].items():
-            #c_text = format_entity(canditate_entity)
             c_text = format_entity_no_path(canditate_entity)
             all_texts.add(c_text)
             text_sources[c_text].append(("candidate", uuid, cand_uuid))
