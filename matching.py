@@ -2,7 +2,6 @@ from nltk import edit_distance
 import json
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
-import numpy as np
 import requests
 from config import gemini_api_key, google_cloud_api_key
 import time
@@ -13,26 +12,37 @@ from embeddings_caching import *
 # TODO: check if there were entities that previously had no match that do now
 # and label
 
+def format_entity_no_path(entity):
+    """
+    Formats the entity term and definition into a single string with no path info
+
+    :param entity : entity with a term and definition
+    @return : single string in lowercase in the format: <term> - <definition>
+    """
+    return f"{entity["term"]} - {entity["definition"]}".lower()
+
 def format_entity(entity):
     """
     Formats the entity term and definition into a single string
 
-    @param entity : entity with a term and definition
-    @return : single string in lowercase in the format: <term> - <definition>
+    :param entity: entity with a term and definition
+    :return: single string in lowercase in the format: <term> - <definition>
     """
     return f"{f"{entity["path"]} | " if "path" in entity else ""}{entity["term"]} - {entity["definition"]}".lower()
 
-def rank_by_n_gram(target:dict, candidates:dict):
+def rank_by_n_gram(target:dict, candidates:dict, threshold=0.044):
     """
     Gets the ranking for each candidate based on cosine simalarity with the target
-    @param target : GCMD entity to match in the format
-    @param candidates : potential matches to target from Wikidata
-    @return : vector for the target, vectors for the candidates
+    :param target: GCMD entity to match in the format
+    :param candidates: potential matches to target from Wikidata
+    :param threshold: threshold for cosine similarity
+    :return: vector for the target, vectors for the candidates
     """
-    THRESHOLD = 0.044
-    target = format_entity(target)
+    #target = format_entity(target)
+    target = format_entity_no_path(target)
     ids = candidates.keys()
-    candidate_texts = [format_entity(candidates[uuid]) for uuid in candidates]
+    #candidate_texts = [format_entity(candidates[uuid]) for uuid in candidates]
+    candidate_texts = [format_entity_no_path(candidates[uuid]) for uuid in candidates]
     texts = [target] + candidate_texts
     vectorizer = TfidfVectorizer(analyzer='word', ngram_range=(2, 3))
     tfidf_matrix = vectorizer.fit_transform(texts)
@@ -42,23 +52,24 @@ def rank_by_n_gram(target:dict, candidates:dict):
     if 0 not in candidate_vectors.shape:
         similarities = cosine_similarity(target_vector, candidate_vectors).flatten()
         similarities = zip(ids, similarities)
-        similarities = [(ent, score) for ent,score in similarities if score>=THRESHOLD]
+        similarities = [(ent, score) for ent,score in similarities if score>=threshold]
     return sorted(similarities, key=lambda x: x[1], reverse=True) if type(similarities)!=str else []
 
-def rank_by_edit_dist(target:str, wikidata_search_res:dict, inverse:bool=False):
+def rank_by_edit_dist(target:str, wikidata_search_res:dict, threshold=0.5):
     """
     Gets the ranking for each candidate based on edit distance from target
 
-    @param target : GCMD entity to match
-    @param wikidata_search_res : search results on WikiData for the target GCMD entity
+    :param target: GCMD entity to match
+    :param wikidata_search_res: WikiData search results for the target
+    :param threshold: threshold for edit distance
+    :param wikidata_search_res: search results on WikiData for the target GCMD entity
     """
-    THRESHOLD = 13
     ranking = []
     for res in wikidata_search_res:
-        score = edit_distance(target.upper(),wikidata_search_res[res]["term"].upper())
-        if score<THRESHOLD:
+        score = edit_distance(target.upper(),wikidata_search_res[res]["term"].upper())/len(target)
+        if score<threshold:
             ranking.append((res,score))
-    return sorted(ranking, key=lambda x: x[1], reverse=inverse)
+    return sorted(ranking, key=lambda x: x[1])
 
 def chunked_iterable(iterable, size):
     """
@@ -176,49 +187,50 @@ def build_unique_text_reprs(gcmd_ents:dict, wikidata_search_res:dict, limit):
     items = gcmd_ents.items() if limit is None else list(gcmd_ents.items())[:limit]
     for uuid, gcmd_entity in items:
         # GCMD entity text
-        gcmd_text = format_entity(gcmd_entity)
+        #gcmd_text = format_entity(gcmd_entity)
+        gcmd_text = format_entity_no_path(gcmd_entity)
         all_texts.add(gcmd_text)
         text_sources[gcmd_text].append(("gcmd", uuid))
 
         # Candidates
         for cand_uuid, canditate_entity in wikidata_search_res[uuid].items():
-            c_text = format_entity(canditate_entity)
+            #c_text = format_entity(canditate_entity)
+            c_text = format_entity_no_path(canditate_entity)
             all_texts.add(c_text)
             text_sources[c_text].append(("candidate", uuid, cand_uuid))
     return text_sources, all_texts
 
-def rank_by_embedding(target_embedding, candidate_embeddings, candidate_ids):
+def rank_by_embedding(target_embedding, candidate_embeddings, candidate_ids, threshold=0.742):
     """
     Rank candidates based on cosine similarity with the target embedding
 
     :param target_embedding: embedding vector for the target
     :param candidate_embeddings: list of embedding vectors for candidates
     :param candidate_ids: list of candidate ids corresponding to embeddings
+    :param threshold: threshold for cosine similarity
     :return: sorted list of (candidate_id, similarity_score) tuples
     """
-    THRESHOLD = 0.742
     if not candidate_embeddings:
         return []
     similarities = cosine_similarity([target_embedding], candidate_embeddings).flatten()
     similarities = zip(candidate_ids, similarities)
-    similarities = [(ent, score) for ent,score in similarities if score>=THRESHOLD]
+    similarities = [(ent, score) for ent,score in similarities if score>=threshold]
     return sorted(similarities, key=lambda x: x[1], reverse=True)
 
 # TODO: try Mistral with the update of checking
-def update_stats(rank:list, ground_truth:list, stats:dict):
-    """
-    Update the statistics needed to calculate accuracy, recall, and precision
+def update_stats(top_candidate:str|None, ground_truth:list, stats:dict):
+    """Update the statistics needed to calculate accuracy, recall, and precision
     :param rank: list of ids ranked by how well they match the target
     :param ground_truth: list of valid matches
     :param stats: dictionary of statistics (e.g. true positive, false negative)
     """
-    if rank and rank[0] in ground_truth:
+    if top_candidate in ground_truth:
         stats["tp"]+=1
-    elif rank and rank[0] not in ground_truth:
+    elif top_candidate not in ground_truth:
         stats["fp"]+=1
-    elif not rank and ground_truth==[""]:
+    elif not top_candidate and ground_truth==[""]:
         stats["tn"]+=1
-    elif not rank and ground_truth!=[""]:
+    elif not top_candidate and ground_truth!=[""]:
         stats["fn"]+=1
 
 def print_performance(method_name:str, stats:dict):
@@ -244,14 +256,14 @@ if __name__=="__main__":
     file = open("ground_truth.json","r")
     ground_truth = json.load(file)
     file.close()
-    # TODO: adjust as needed
+    # adjust as needed
     LABELED_SAMPLES = 475
     """llm_stats = {"tp":0, "fp":0, "tn":0, "fn":0}
     llm_outputs = process_batches(gcmd_ents, wikidata_search_res, LABELED_SAMPLES)
     for uuid in llm_outputs:
         ground_truth_matches = ground_truth[uuid].split(",")
         print(f"UUID: {uuid} Ranking: {llm_outputs[uuid]}")
-        update_stats(llm_outputs[uuid], ground_truth_matches, llm_stats)
+        update_stats(llm_outputs[uuid][0] if llm_outputs[uuid] else None, ground_truth_matches, llm_stats)
     for ind in llm_stats:
         print(f"LLM {ind}: {llm_stats[ind]}")
     print("")
@@ -260,7 +272,7 @@ if __name__=="__main__":
     # init_db()
     text_sources, all_texts = build_unique_text_reprs(gcmd_ents, wikidata_search_res, LABELED_SAMPLES)
     all_texts = list(all_texts)
-    embeddings = batch_embeddings_with_cache(all_texts, api_key=google_cloud_api_key)
+    embeddings = batch_embeddings_with_cache(all_texts, api_key=google_cloud_api_key, db_path="embeddings_cache_old.db")
     text_to_emb = dict(zip(list(all_texts), embeddings))
     gcmd_embeddings = {}
     candidate_embeddings = defaultdict(dict)
@@ -276,18 +288,17 @@ if __name__=="__main__":
     """
     embedding_stats = {"tp":0, "fp":0, "tn":0, "fn":0}
     num_samples = 0
-    total_cos_sim = 0
     for uuid in gcmd_ents:
         if wikidata_search_res[uuid]:
             ground_truth_matches = ground_truth[uuid].split(",")
             """edit_dist_rank = [item[0] for item in rank_by_edit_dist(gcmd_ents[uuid]["term"], wikidata_search_res[uuid])]
-            update_stats(edit_dist_rank, ground_truth_matches, edit_dist_stats)
+            update_stats(edit_dist_rank[0] if edit_dist_rank else None, ground_truth_matches, edit_dist_stats)
             n_gram_rank = [item[0] for item in rank_by_n_gram(gcmd_ents[uuid],wikidata_search_res[uuid])]
-            update_stats(n_gram_rank, ground_truth_matches, n_gram_stats)"""
+            update_stats(n_gram_rank[0] if n_gram_rank else None, ground_truth_matches, n_gram_stats)"""
             embedding_rank = [item[0] for item in rank_by_embedding(gcmd_embeddings[uuid],
                                                list(candidate_embeddings[uuid].values()),
                                                list(candidate_embeddings[uuid].keys()))]
-            update_stats(embedding_rank, ground_truth_matches, embedding_stats)
+            update_stats(embedding_rank[0] if embedding_rank else None, ground_truth_matches, embedding_stats)
         num_samples+=1
         if num_samples==LABELED_SAMPLES:
             break
