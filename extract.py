@@ -92,25 +92,18 @@ def get_wikidata_search_results(term:str):
     """
     Queries Wikidata's search engine with a term and returns the search results
 
-    @param term:phrase to search for
+    :param term: phrase to search for
     """
     HEADERS = {
         "User-Agent": USER_AGENT,
     }
     filtered_data = dict()
-    slash_ind = term.find("/")
-    if slash_ind==-1:
-        slash_ind=len(term)
-    paren_ind = term.find("(")
-    if paren_ind==-1:
-        paren_ind=len(term)
-    query = term[:slash_ind] if slash_ind < paren_ind else term[:paren_ind]
     try:
         response = session.get(
             "https://www.wikidata.org/w/api.php",
             params={
                 "action": "wbsearchentities",
-                "search": query,
+                "search": term,
                 "language": "en",
                 "uselang": "en",
                 "format": "json",
@@ -133,7 +126,7 @@ def get_wikidata_search_results(term:str):
                 and "journal article" not in definition and "encyclopedia article" not in definition
                 and "list article" not in definition and "encyclopedic article" not in definition
                 and "Wikinews article" not in definition
-                and "news article" not in definition and not re.match("Wikimedia.*article", definition)=
+                and "news article" not in definition and not re.match("Wikimedia.*article", definition)
                 and not re.match("(overview|confluent|techincal|magazine).*article", definition)
             ):
                 filtered_data[res["id"]] = {
@@ -152,47 +145,6 @@ def sleep_if_needed(start_time, num_reqs, reqs_per_minute_allowed):
         start_time = time()
     return num_reqs, start_time
 
-REQS_PER_MINUTE_ALLOWED = 60
-
-# TODO revert back to previous version and integrate variant searching (/ in term, ends with s)
-def write_search_results_to_json(gcmd_ents_filename):
-    """
-    Writes the Wikidata search results for each GCMD entity to a JSON file
-
-    @param gcmd_ents_filename
-    """
-    gcmd_ents = None
-    with open(gcmd_ents_filename,'r') as gcmd_ents_file:
-        gcmd_ents = load(gcmd_ents_file)
-    wiki_data_search_res = None
-    with open("search_res.json",'r') as wiki_data_search_res_file:
-        wiki_data_search_res = load(wiki_data_search_res_file)
-    num_reqs = 0
-    start_time = None
-    for uuid in gcmd_ents:
-        if not wiki_data_search_res.get(uuid) and gcmd_ents[uuid]["term"].endswith("s"):
-            if start_time is None:
-                start_time = time()
-            num_reqs, start_time = sleep_if_needed(start_time, num_reqs, REQS_PER_MINUTE_ALLOWED)
-            wiki_data_search_res[uuid] = get_wikidata_search_results(gcmd_ents[uuid]["term"][:-1])
-            num_reqs+=1
-        # try with path
-        if not wiki_data_search_res.get(uuid) and gcmd_ents[uuid]["path"]:
-            path = gcmd_ents[uuid]["path"].split('/')
-            if len(path)>=2:
-                path = " ".join(path[-2:])
-            else:
-                path = path[0]
-            num_reqs, start_time = sleep_if_needed(start_time, num_reqs, REQS_PER_MINUTE_ALLOWED)
-            wiki_data_search_res[uuid] = get_wikidata_search_results(f"{gcmd_ents[uuid]["term"]} {path}")
-            num_reqs+=1
-    with open("search_res.json","w") as file:
-        dump(wiki_data_search_res,file)
-
-#write_all_gcmd_ents_to_json()
-#print(get_wikidata_search_results("petrel"))
-#write_search_results_to_json("gcmd_ents.json")
-
 def generate_search_variants(term: str):
     parts = term.split('/')
     variants = set()
@@ -203,8 +155,73 @@ def generate_search_variants(term: str):
             variants.add(' '.join(parts[i:j+1]))
     return variants
 
+REQS_PER_MINUTE_ALLOWED = 60
+
+# TODO revert back to previous version and integrate variant searching (/ in term, ends with s)
+def write_search_results_to_json(gcmd_ents_filename):
+    """
+    Writes the Wikidata search results for each GCMD entity to a JSON file
+
+    :param gcmd_ents_filename:
+    """
+    gcmd_ents = None
+    with open(gcmd_ents_filename,'r') as gcmd_ents_file:
+        gcmd_ents = load(gcmd_ents_file)
+    wiki_data_search_res = None
+    with open("search_res.json",'r') as wiki_data_search_res_file:
+        wiki_data_search_res = load(wiki_data_search_res_file)
+    num_reqs = 0
+    start_time = None
+    for uuid in gcmd_ents:
+        if start_time is None:
+            start_time = time()
+        num_reqs, start_time = sleep_if_needed(start_time, num_reqs, REQS_PER_MINUTE_ALLOWED)
+        wiki_data_search_res[uuid] = get_wikidata_search_results(gcmd_ents[uuid]["term"])
+        num_reqs+=1
+        if gcmd_ents[uuid]["term"].endswith("s"):
+            num_reqs, start_time = sleep_if_needed(start_time, num_reqs, REQS_PER_MINUTE_ALLOWED)
+            wiki_data_search_res[uuid] |= get_wikidata_search_results(gcmd_ents[uuid]["term"][:-1])
+            num_reqs+=1
+        term = gcmd_ents[uuid]["term"].upper()
+        if "/" in term:
+            variants = generate_search_variants(term)
+            if "S/" in term:
+                singular_term = term
+                if term.endswith("S"):
+                    singular_term = singular_term[:-1]
+                variants = variants.union(generate_search_variants(singular_term.replace("S/","/")))
+            for variant in variants:
+                num_reqs, start_time = sleep_if_needed(start_time, num_reqs, REQS_PER_MINUTE_ALLOWED)
+                wiki_data_search_res[uuid]|=get_wikidata_search_results(variant)
+                num_reqs+=1
+        if "(" in term:
+            non_paren_term = term[:term.find("(")-1]
+            num_reqs, start_time = sleep_if_needed(start_time, num_reqs, REQS_PER_MINUTE_ALLOWED)
+            wiki_data_search_res[uuid] = get_wikidata_search_results(non_paren_term)
+            num_reqs+=1
+            if term.endswith("S"):
+                num_reqs, start_time = sleep_if_needed(start_time, num_reqs, REQS_PER_MINUTE_ALLOWED)
+                search_res[uuid] |= get_wikidata_search_results(gcmd_ents[uuid]["term"][:-1])
+                num_reqs+=1
+
+        # try with path
+        if not wiki_data_search_res.get(uuid) and gcmd_ents[uuid]["path"]:
+            path = gcmd_ents[uuid]["path"].split('/')
+            if len(path)>=2:
+                path = " ".join(path[-2:])
+            else:
+                path = path[0]
+            num_reqs, start_time = sleep_if_needed(start_time, num_reqs, REQS_PER_MINUTE_ALLOWED)
+            wiki_data_search_res[uuid] = get_wikidata_search_results(f"{term} {path}")
+            num_reqs+=1
+    with open("search_res.json","w") as file:
+        dump(wiki_data_search_res,file)
+
+#write_all_gcmd_ents_to_json()
+#print(get_wikidata_search_results("petrel"))
+#write_search_results_to_json("gcmd_ents.json")
 #print(generate_search_variants("GLACIERS/ICE SHEETS".replace("")))
-"""search_res = None
+search_res = None
 with open("search_res.json") as file:
     search_res = load(file)
 gcmd_ents = None
@@ -215,28 +232,24 @@ num_reqs = 0
 start_time = None
 for uuid in search_res:
     term = gcmd_ents[uuid]["term"].upper()
-    if "/" in term:
-        variants = generate_search_variants(term)
-        if "S/" in term:
-            singular_term = term
-            if term.endswith("S"):
-                singular_term = singular_term[:-1]
-            variants = variants.union(generate_search_variants(singular_term.replace("S/","/")))
-        for variant in variants:
-            if start_time is None:
-                start_time = time()
+    if "(" in term and not search_res[uuid]:
+        num_reqs, start_time = sleep_if_needed(start_time, num_reqs, REQS_PER_MINUTE_ALLOWED)
+        term = term[:term.find("(")-1]
+        search_res[uuid] = get_wikidata_search_results(term)
+        num_reqs+=1
+        if term.endswith("S"):
             num_reqs, start_time = sleep_if_needed(start_time, num_reqs, REQS_PER_MINUTE_ALLOWED)
-            search_res[uuid]|=get_wikidata_search_results(variant)
+            search_res[uuid] |= get_wikidata_search_results(term[:-1])
             num_reqs+=1
     if not search_res[uuid]:
         no_search_res_ents.append([uuid,term])
 with open("no_search_res.json","w") as file:
     dump(no_search_res_ents, file)
 with open("search_res.json","w") as file:
-    dump(search_res,file)"""
+    dump(search_res,file)
 
 #remove article objects or entities with null definition
-search_res = None
+"""search_res = None
 to_delete = []
 with open("search_res.json") as file:
     search_res = load(file)
@@ -257,4 +270,4 @@ for uuid in search_res:
         num_res+=1
 print(num_res)
 with open("search_res.json", "w") as file:
-    dump(search_res, file)
+    dump(search_res, file)"""
