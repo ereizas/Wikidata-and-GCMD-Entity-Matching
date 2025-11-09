@@ -10,6 +10,9 @@ import itertools
 from collections import defaultdict
 from embeddings_caching import *
 
+# TODO: check if there were entities that previously had no match that do now
+# and label
+
 def format_entity(entity):
     """
     Formats the entity term and definition into a single string
@@ -17,7 +20,7 @@ def format_entity(entity):
     @param entity : entity with a term and definition
     @return : single string in lowercase in the format: <term> - <definition>
     """
-    return f"{entity["term"]} - {entity["definition"]}".lower()
+    return f"{f"{entity["path"]} | " if "path" in entity else ""}{entity["term"]} - {entity["definition"]}".lower()
 
 def rank_by_n_gram(target:dict, candidates:dict):
     """
@@ -83,7 +86,15 @@ def build_batch_payload(batch_uuids, gcmd_ents, wikidata_search_res):
     task_text = ""
     for uuid in batch_uuids:
         if wikidata_search_res[uuid]:
-            task_text+=f"{uuid}: term='{gcmd_ents[uuid]['term']}', definition='{gcmd_ents[uuid]['definition']}', candidates={wikidata_search_res[uuid]}\n\n"
+            ent = gcmd_ents[uuid]
+            hierarchy = " > ".join(ent.get("hierarchy", [])) if ent.get("hierarchy") else "N/A"
+            task_text += (
+            f"{uuid}: "
+            f"term='{ent['term']}', "
+            f"definition='{ent['definition']}', "
+            f"hierarchy='{hierarchy}', "
+            f"candidates={wikidata_search_res[uuid]}\n\n"
+        )
     return {
         "contents": [
             {
@@ -91,7 +102,9 @@ def build_batch_payload(batch_uuids, gcmd_ents, wikidata_search_res):
                 "parts": [
                     {
                         "text": (
-                            "For each target entity, rank candidates by match likelihood.\n"
+                            "You are matching GCMD entities to candidate Wikidata entities.\n"
+                            "Each target entity has a term, definition, and keyword hierarchy.\n"
+                            "Use all available context to rank which Wikidata candidates best match, excluding those that are not a semantic match.\n\n"
                             "Respond ONLY in valid JSON with this schema:\n\n"
                             "{ \"results\": { \"<uuid>\": [\"<candidate_id>\", ...], ... } }\n\n"
                             "If no candidates are valid, return an empty list for that uuid.\n\n"
@@ -125,6 +138,7 @@ def rate_limited_post(url, payload, last_call_time, min_interval=5.0):
 
 API_URL = f"https://aiplatform.googleapis.com/v1/publishers/google/models/gemini-2.5-flash-lite:generateContent?key={gemini_api_key}"
 
+# TODO: add path to LLM API query
 def process_batches(gcmd_ents, wikidata_search_res, num_samples, batch_size=10):
     """
     Query the LLM to match each target in the batch
@@ -224,13 +238,14 @@ if __name__=="__main__":
     file = open("gcmd_ents.json","r")
     gcmd_ents = json.load(file)
     file.close()
-    file = open("gcmd_ents_wikidata_search_res.json","r")
+    file = open("search_res.json","r")
     wikidata_search_res = json.load(file)
     file.close()
-    file = open("gcmd_ent_wikidata_ent_matching_ground_truth.json","r")
+    file = open("ground_truth.json","r")
     ground_truth = json.load(file)
     file.close()
-    LABELED_SAMPLES = 457
+    # TODO: adjust as needed
+    LABELED_SAMPLES = 475
     """llm_stats = {"tp":0, "fp":0, "tn":0, "fn":0}
     llm_outputs = process_batches(gcmd_ents, wikidata_search_res, LABELED_SAMPLES)
     for uuid in llm_outputs:
@@ -255,7 +270,7 @@ if __name__=="__main__":
                 gcmd_embeddings[info[1]] = text_to_emb[text]
             elif info[0] == "candidate":
                 candidate_embeddings[info[1]][info[2]] = text_to_emb[text]
-
+    
     """edit_dist_stats = {"tp":0, "fp":0, "tn":0, "fn":0}
     n_gram_stats = {"tp":0, "fp":0, "tn":0, "fn":0}
     """
