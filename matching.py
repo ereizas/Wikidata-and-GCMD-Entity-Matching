@@ -226,7 +226,7 @@ def update_stats(top_candidate:str|None, ground_truth:list, stats:dict):
     """
     if top_candidate in ground_truth:
         stats["tp"]+=1
-    elif top_candidate not in ground_truth:
+    elif top_candidate and top_candidate not in ground_truth:
         stats["fp"]+=1
     elif not top_candidate and ground_truth==[""]:
         stats["tn"]+=1

@@ -3,3 +3,4 @@ beautifulsoup4
 nltk
 scikit-learn
 google-genai
+matplotlib

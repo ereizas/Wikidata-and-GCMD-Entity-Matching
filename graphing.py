@@ -1,4 +1,6 @@
 import json
+import matplotlib.pyplot as plt
+import numpy as np
 from collections import defaultdict
 from config import google_cloud_api_key
 from matching import (
@@ -9,6 +11,42 @@ from matching import (
     rank_by_embedding,
     update_stats
 )
+
+def graph_results(thresholds:list[float], stats:list[dict], method_name:str):
+    accuracies = np.array(
+        [(stats[i]["tp"]+stats[i]["tn"])/float(stats[i]["tp"]+stats[i]["fp"]+stats[i]["tn"]+stats[i]["fn"]) 
+        for i in range(len(thresholds))]
+    )
+    #print(accuracies)
+    precisions = np.array(
+        [stats[i]["tp"]/float(stats[i]["tp"]+stats[i]["fp"]) if stats[i]["tp"] or stats[i]["fp"] else 0 
+        for i in range(len(thresholds))]
+    )
+    #print(precisions)
+    recalls = np.array(
+        [stats[i]["tp"]/float(stats[i]["tp"]+stats[i]["fn"]) if stats[i]["tp"] or stats[i]["fn"] else 0 
+        for i in range(len(thresholds))]
+    )
+    #print(recalls)
+    f1_scores = np.array(
+        [precisions[i]*recalls[i]/(precisions[i]+recalls[i]) if precisions[i] or recalls[i] else 0
+        for i in range(len(thresholds))]
+    )
+    #print(f1_scores)
+    plt.figure(figsize=(10,6))
+    plt.plot(thresholds, accuracies, label="Accuracy", color="blue")
+    plt.plot(thresholds, precisions, label="Precision", color="green")
+    plt.plot(thresholds, recalls, label="Recall", color="orange")
+    plt.plot(thresholds, f1_scores, label="F1 Score", color="purple")
+    plt.xlabel("Threshold")
+    plt.ylabel("Score")
+    plt.title(f"{method_name} Metrics for Different Thresholds")
+    plt.legend()
+    plt.grid(True)
+    # TODO: save under different name with hierarchy
+    plt.savefig(f"{method_name}_diff_thresholds_metrics.png")
+    plt.show()
+
 
 if __name__=="__main__":
     file = open("gcmd_ents.json","r")
@@ -21,7 +59,6 @@ if __name__=="__main__":
     ground_truth = json.load(file)
     file.close()
     thresholds = [0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9]
-    print(thresholds)
     # adjust as needed
     LABELED_SAMPLES = 475
     # test out different thresholds
@@ -62,3 +99,5 @@ if __name__=="__main__":
         num_samples+=1
         if num_samples==LABELED_SAMPLES:
             break
+    graph_results(thresholds, edit_dist_stats, "Edit Distance")
+    graph_results(thresholds, n_gram_stats, "N-Gram")
