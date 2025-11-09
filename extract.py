@@ -5,7 +5,7 @@ import xml.etree.ElementTree as ET
 from json import dump, load
 from config import earth_data_user_token, wikidata_access_token
 from time import time, sleep
-from random import uniform
+import re
 
 # TODO: try removing characters after first slash or paren for search
 
@@ -132,8 +132,9 @@ def get_wikidata_search_results(term:str):
                 "scholarly article" not in definition and "scientific article" not in definition.lower()
                 and "journal article" not in definition and "encyclopedia article" not in definition
                 and "list article" not in definition and "encyclopedic article" not in definition
-                and "Wikinews article" not in definition and definition!="journal" 
-                and "scientific journal" not in definition.lower() and "academic journal" not in definition.lower()
+                and "Wikinews article" not in definition
+                and "news article" not in definition and not re.match("Wikimedia.*article", definition)=
+                and not re.match("(overview|confluent|techincal|magazine).*article", definition)
             ):
                 filtered_data[res["id"]] = {
                     "term":res["display"]["label"]["value"],
@@ -244,7 +245,7 @@ for uuid in search_res:
     for wiki_id in search_res[uuid]:
         num_res+=1
         definition = search_res[uuid][wiki_id]["definition"]
-        if "scientific journal" in definition.lower() or "academic journal" in definition.lower():
+        if "news article" in definition or re.match("\\d{4}.*article|Wikimedia.*article", definition):
             to_delete.append((uuid,wiki_id))
 print(num_res)
 print(len(to_delete))
