@@ -132,7 +132,8 @@ def get_wikidata_search_results(term:str):
                 "scholarly article" not in definition and "scientific article" not in definition.lower()
                 and "journal article" not in definition and "encyclopedia article" not in definition
                 and "list article" not in definition and "encyclopedic article" not in definition
-                and "Wikinews article" not in definition
+                and "Wikinews article" not in definition and definition!="journal" 
+                and "scientific journal" not in definition.lower() and "academic journal" not in definition.lower()
             ):
                 filtered_data[res["id"]] = {
                     "term":res["display"]["label"]["value"],
@@ -188,7 +189,7 @@ def write_search_results_to_json(gcmd_ents_filename):
         dump(wiki_data_search_res,file)
 
 #write_all_gcmd_ents_to_json()
-print(get_wikidata_search_results("petrel"))
+#print(get_wikidata_search_results("petrel"))
 #write_search_results_to_json("gcmd_ents.json")
 
 def generate_search_variants(term: str):
@@ -233,7 +234,7 @@ with open("no_search_res.json","w") as file:
 with open("search_res.json","w") as file:
     dump(search_res,file)"""
 
-"""#remove article objects or entities with null definition
+#remove article objects or entities with null definition
 search_res = None
 to_delete = []
 with open("search_res.json") as file:
@@ -243,11 +244,7 @@ for uuid in search_res:
     for wiki_id in search_res[uuid]:
         num_res+=1
         definition = search_res[uuid][wiki_id]["definition"]
-        if not definition:
-            "encyclopedia article" in definition or "list article" in definition or
-            "scientific article" in definition.lower() or "journal article" in definition or
-            "encyclopedia article" in definition or "list article" in definition or
-print(num_res)
+        if "scientific journal" in definition.lower() or "academic journal" in definition.lower():
             to_delete.append((uuid,wiki_id))
 print(num_res)
 print(len(to_delete))
@@ -259,4 +256,4 @@ for uuid in search_res:
         num_res+=1
 print(num_res)
 with open("search_res.json", "w") as file:
-    dump(search_res, file)"""
+    dump(search_res, file)
