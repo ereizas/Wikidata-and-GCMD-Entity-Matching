@@ -178,11 +178,19 @@ def write_search_results_to_json(gcmd_ents_filename):
         num_reqs, start_time = sleep_if_needed(start_time, num_reqs, REQS_PER_MINUTE_ALLOWED)
         wiki_data_search_res[uuid] = get_wikidata_search_results(gcmd_ents[uuid]["term"])
         num_reqs+=1
-        if gcmd_ents[uuid]["term"].endswith("s"):
-            num_reqs, start_time = sleep_if_needed(start_time, num_reqs, REQS_PER_MINUTE_ALLOWED)
-            wiki_data_search_res[uuid] |= get_wikidata_search_results(gcmd_ents[uuid]["term"][:-1])
-            num_reqs+=1
         term = gcmd_ents[uuid]["term"].upper()
+        if term.endswith("IES") and not term.endswith("SPECIES") and not term.endswith("FACIES"):
+            if start_time==None:
+                start_time = time()
+            num_reqs, start_time = sleep_if_needed(start_time, num_reqs, REQS_PER_MINUTE_ALLOWED)
+            search_res[uuid] |= get_wikidata_search_results(term[:-3]+"Y")
+            num_reqs+=1
+        elif term.endswith("S"):
+            if start_time==None:
+                start_time = time()
+            num_reqs, start_time = sleep_if_needed(start_time, num_reqs, REQS_PER_MINUTE_ALLOWED)
+            wiki_data_search_res[uuid] |= get_wikidata_search_results(term[:-1])
+            num_reqs+=1
         if "/" in term:
             variants = generate_search_variants(term)
             if "S/" in term:
@@ -190,12 +198,16 @@ def write_search_results_to_json(gcmd_ents_filename):
                 if term.endswith("S"):
                     singular_term = singular_term[:-1]
                 variants = variants.union(generate_search_variants(singular_term.replace("S/","/")))
+            if start_time==None:
+                start_time = time()
             for variant in variants:
                 num_reqs, start_time = sleep_if_needed(start_time, num_reqs, REQS_PER_MINUTE_ALLOWED)
                 wiki_data_search_res[uuid]|=get_wikidata_search_results(variant)
                 num_reqs+=1
         if "(" in term:
             non_paren_term = term[:term.find("(")-1]
+            if start_time==None:
+                start_time = time()
             num_reqs, start_time = sleep_if_needed(start_time, num_reqs, REQS_PER_MINUTE_ALLOWED)
             wiki_data_search_res[uuid] = get_wikidata_search_results(non_paren_term)
             num_reqs+=1
@@ -211,14 +223,17 @@ def write_search_results_to_json(gcmd_ents_filename):
                 path = " ".join(path[-2:])
             else:
                 path = path[0]
+            if start_time==None:
+                start_time = time()
             num_reqs, start_time = sleep_if_needed(start_time, num_reqs, REQS_PER_MINUTE_ALLOWED)
             wiki_data_search_res[uuid] = get_wikidata_search_results(f"{term} {path}")
             num_reqs+=1
     with open("search_res.json","w") as file:
         dump(wiki_data_search_res,file)
 
+print("SPECIES"[:-3]+"Y")
 #write_all_gcmd_ents_to_json()
-#print(get_wikidata_search_results("petrel"))
+#print(get_wikidata_search_results("snow facie"))
 #write_search_results_to_json("gcmd_ents.json")
 #print(generate_search_variants("GLACIERS/ICE SHEETS".replace("")))
 search_res = None
@@ -232,15 +247,15 @@ num_reqs = 0
 start_time = None
 for uuid in search_res:
     term = gcmd_ents[uuid]["term"].upper()
-    if "(" in term and not search_res[uuid]:
+    if not search_res[uuid] and term.endswith("IES") and not term.endswith("SPECIES") and not term.endswith("FACIES"):
+        if start_time==None:
+            start_time = time()
         num_reqs, start_time = sleep_if_needed(start_time, num_reqs, REQS_PER_MINUTE_ALLOWED)
-        term = term[:term.find("(")-1]
+        term = term[:-3]+"Y"
         search_res[uuid] = get_wikidata_search_results(term)
         num_reqs+=1
-        if term.endswith("S"):
-            num_reqs, start_time = sleep_if_needed(start_time, num_reqs, REQS_PER_MINUTE_ALLOWED)
-            search_res[uuid] |= get_wikidata_search_results(term[:-1])
-            num_reqs+=1
+        if search_res[uuid]:
+            print(uuid)
     if not search_res[uuid]:
         no_search_res_ents.append([uuid,term])
 with open("no_search_res.json","w") as file:
