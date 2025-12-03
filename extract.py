@@ -231,12 +231,11 @@ def write_search_results_to_json(gcmd_ents_filename):
     with open("search_res.json","w") as file:
         dump(wiki_data_search_res,file)
 
-print("SPECIES"[:-3]+"Y")
 #write_all_gcmd_ents_to_json()
 #print(get_wikidata_search_results("snow facie"))
 #write_search_results_to_json("gcmd_ents.json")
 #print(generate_search_variants("GLACIERS/ICE SHEETS".replace("")))
-search_res = None
+"""search_res = None
 with open("search_res.json") as file:
     search_res = load(file)
 gcmd_ents = None
@@ -261,7 +260,8 @@ for uuid in search_res:
 with open("no_search_res.json","w") as file:
     dump(no_search_res_ents, file)
 with open("search_res.json","w") as file:
-    dump(search_res,file)
+    dump(search_res,file)"""
+
 
 #remove article objects or entities with null definition
 """search_res = None

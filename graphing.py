@@ -17,7 +17,7 @@ def collect_results(thresholds, num_labeled_samples, gcmd_ents, search_res, use_
     # test out different thresholds
     text_sources, all_texts = build_unique_text_reprs(gcmd_ents, search_res, num_labeled_samples, use_path=use_path)
     all_texts = list(all_texts)
-    embeddings = batch_embeddings_with_cache(all_texts, api_key=google_cloud_api_key, db_path="embeddings_cache.db" if use_path else "embeddings_cache_old.db")
+    embeddings = batch_embeddings_with_cache(all_texts, api_key=google_cloud_api_key, db_path="embeddings_cache.db" if use_path else "embeddings_cache_no_path.db")
     text_to_emb = dict(zip(list(all_texts), embeddings))
     gcmd_embeddings = {}
     candidate_embeddings = defaultdict(dict)
@@ -37,7 +37,8 @@ def collect_results(thresholds, num_labeled_samples, gcmd_ents, search_res, use_
     for uuid in gcmd_ents:
         if search_res[uuid]:
             ground_truth_matches = ground_truth[uuid].split(",")
-            #edit_dist_res[uuid] = rank_by_edit_dist(gcmd_ents[uuid]["term"], search_res[uuid], threshold=2)
+            if not use_path:
+                edit_dist_res[uuid] = rank_by_edit_dist(gcmd_ents[uuid]["term"], search_res[uuid], threshold=2)
             n_gram_res[uuid] = rank_by_n_gram(gcmd_ents[uuid],search_res[uuid], threshold=0, use_path=use_path)
             embedding_res[uuid] = rank_by_embedding(
                 gcmd_embeddings[uuid],
@@ -75,7 +76,7 @@ def graph_results(thresholds:list[float], stats:list[dict], method_name:str, wit
     )
     print(recalls)
     f1_scores = np.array(
-        [precisions[i]*recalls[i]/(precisions[i]+recalls[i]) if precisions[i] or recalls[i] else 0
+        [2*precisions[i]*recalls[i]/(precisions[i]+recalls[i]) if precisions[i] or recalls[i] else 0
         for i in range(len(thresholds))]
     )
     print(f1_scores)
@@ -86,10 +87,9 @@ def graph_results(thresholds:list[float], stats:list[dict], method_name:str, wit
     plt.plot(thresholds, f1_scores, label="F1 Score", color="purple")
     plt.xlabel("Threshold")
     plt.ylabel("Score")
-    plt.title(f"{method_name}{" with Path"} Metrics for Different Thresholds")
+    plt.title(f"{method_name}{" (with Path)" if with_path else ""} Metrics for Different Thresholds")
     plt.legend()
     plt.grid(True)
-    # TODO: save under different name with hierarchy
     plt.savefig(f"{method_name}_diff_thresholds_metrics{"_with_path" if with_path else ""}.png")
     plt.show()
 
@@ -107,9 +107,11 @@ if __name__=="__main__":
     thresholds = [0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9]
     # adjust as needed
     LABELED_SAMPLES = 475
+    use_path = True
     edit_dist_stats, n_gram_stats, embedding_stats = collect_results(
-        thresholds, LABELED_SAMPLES, gcmd_ents, wikidata_search_res, use_path=True
+        thresholds, LABELED_SAMPLES, gcmd_ents, wikidata_search_res, use_path=use_path
     )
-    #graph_results(thresholds, edit_dist_stats, "Edit Distance")
-    graph_results(thresholds, n_gram_stats, "N-Gram", with_path=True)
-    graph_results(thresholds, embedding_stats, "Embeddings", with_path=True)
+    if not use_path:
+        graph_results(thresholds, edit_dist_stats, "Edit Distance")
+    graph_results(thresholds, n_gram_stats, "N-Gram", with_path=use_path)
+    graph_results(thresholds, embedding_stats, "Embeddings", with_path=use_path)
